@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ShopBlockr</string>
+    <string name="accessibility_service_description">ShopBlockr helps protect you from shopping distractions by detecting sponsored content and shopping elements in TikTok. This service needs to read screen content to identify shopping-related elements and show protective warnings.</string>
+</resources>
