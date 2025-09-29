@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:description="@string/accessibility_service_description"
     android:packageNames="com.zhiliaoapp.musically"
-    android:accessibilityEventTypes="typeViewClicked|typeWindowContentChanged"
+    android:accessibilityEventTypes="typeViewClicked|typeWindowContentChanged|typeViewFocused|typeViewScrolled"
     android:accessibilityFlags="flagDefault|flagRetrieveInteractiveWindows"
     android:accessibilityFeedbackType="feedbackSpoken"
     android:notificationTimeout="100"

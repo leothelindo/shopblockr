@@ -30,16 +30,22 @@ class OverlayService : Service() {
         private const val TAG = "OverlayService"
         const val ACTION_SHOW_SPONSORED_WARNING = "show_sponsored_warning"
         const val ACTION_BLOCK_SHOPPING_ELEMENTS = "block_shopping_elements"
+        const val ACTION_BLOCK_SHOP_TABS = "block_shop_tabs"
+        const val ACTION_SHOW_SHOP_COOLDOWN = "show_shop_cooldown"
         const val ACTION_CLEAR_ALL_OVERLAYS = "clear_all_overlays"
         const val EXTRA_ELEMENT_COUNT = "element_count"
         const val EXTRA_ELEMENT_BOUNDS = "element_bounds"
+        const val EXTRA_COOLDOWN_SECONDS = "cooldown_seconds"
     }
 
     private var windowManager: WindowManager? = null
     private var sponsoredOverlay: View? = null
     private var blockingOverlays = mutableListOf<View>()
+    private var shopTabOverlays = mutableListOf<View>()
+    private var cooldownOverlay: View? = null
     private val serviceScope = CoroutineScope(Dispatchers.Main + Job())
     private var hideOverlayJob: Job? = null
+    private var hideCooldownJob: Job? = null
     private lateinit var settingsManager: SettingsManager
 
     override fun onCreate() {
@@ -68,6 +74,21 @@ class OverlayService : Service() {
                     }
                     blockShoppingElements(elementCount, elementBounds)
                 }
+                ACTION_BLOCK_SHOP_TABS -> {
+                    val elementCount = serviceIntent.getIntExtra(EXTRA_ELEMENT_COUNT, 0)
+                    val elementBounds = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        @Suppress("DEPRECATION")
+                        serviceIntent.getSerializableExtra(EXTRA_ELEMENT_BOUNDS, Array<IntArray>::class.java)
+                    } else {
+                        @Suppress("DEPRECATION")
+                        serviceIntent.getSerializableExtra(EXTRA_ELEMENT_BOUNDS) as? Array<IntArray>
+                    }
+                    blockShopTabs(elementCount, elementBounds)
+                }
+                ACTION_SHOW_SHOP_COOLDOWN -> {
+                    val cooldownSeconds = serviceIntent.getIntExtra(EXTRA_COOLDOWN_SECONDS, 3)
+                    showShopCooldown(cooldownSeconds)
+                }
                 ACTION_CLEAR_ALL_OVERLAYS -> {
                     clearAllOverlays()
                 }
@@ -80,6 +101,11 @@ class OverlayService : Service() {
     private fun showSponsoredWarning() {
         if (!settingsManager.isServiceEnabled()) {
             Log.d(TAG, "Service disabled, not showing sponsored warning")
+            return
+        }
+        
+        if (!settingsManager.isOverlayWarningsEnabled()) {
+            Log.d(TAG, "Overlay warnings disabled, not showing sponsored warning")
             return
         }
 
@@ -136,13 +162,15 @@ class OverlayService : Service() {
 
             Log.w(TAG, "✅ SPONSORED WARNING OVERLAY ADDED TO SCREEN")
             
-            // Vibrate to get attention
-            vibrateDevice()
+            // Vibrate to get attention (if enabled)
+            if (settingsManager.isVibrationEnabled()) {
+                vibrateDevice()
+            }
 
-            // Auto-hide after delay
+            // Auto-hide after user-configured delay
             hideOverlayJob?.cancel()
             hideOverlayJob = serviceScope.launch {
-                delay(4000)
+                delay(settingsManager.getWarningDuration())
                 hideSponsoredWarning()
             }
 
@@ -219,11 +247,155 @@ class OverlayService : Service() {
         Log.d(TAG, "Cleared all blocking overlays")
     }
 
+    private fun blockShopTabs(elementCount: Int, elementBounds: Array<IntArray>?) {
+        if (!settingsManager.isServiceEnabled() || !settingsManager.isShopBlockingEnabled()) {
+            return
+        }
+
+        Log.d(TAG, "Blocking $elementCount shop tab elements")
+
+        // Clear existing shop tab overlays
+        clearShopTabOverlays()
+
+        elementBounds?.forEach { bounds ->
+            try {
+                val inflater = LayoutInflater.from(this)
+                val blockingView = inflater.inflate(R.layout.blocking_overlay, null)
+
+                val params = WindowManager.LayoutParams(
+                    bounds[2] - bounds[0], // width
+                    bounds[3] - bounds[1], // height
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+                    } else {
+                        @Suppress("DEPRECATION")
+                        WindowManager.LayoutParams.TYPE_PHONE
+                    },
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    PixelFormat.TRANSLUCENT
+                )
+
+                params.x = bounds[0]
+                params.y = bounds[1]
+                params.gravity = Gravity.TOP or Gravity.START
+
+                windowManager?.addView(blockingView, params)
+                shopTabOverlays.add(blockingView)
+
+                Log.d(TAG, "Added shop tab blocking overlay at (${bounds[0]}, ${bounds[1]}) size ${bounds[2] - bounds[0]}x${bounds[3] - bounds[1]}")
+
+            } catch (e: Exception) {
+                Log.e(TAG, "Error creating shop tab blocking overlay: ${e.message}", e)
+            }
+        }
+    }
+
+    private fun showShopCooldown(cooldownSeconds: Int) {
+        if (!settingsManager.isServiceEnabled() || !settingsManager.isShopBlockingEnabled()) {
+            return
+        }
+
+        Log.d(TAG, "Showing shop cooldown overlay for $cooldownSeconds seconds")
+        
+        try {
+            // Remove existing cooldown overlay if present
+            cooldownOverlay?.let { overlay ->
+                windowManager?.removeView(overlay)
+                cooldownOverlay = null
+            }
+
+            // Create new cooldown overlay
+            val inflater = LayoutInflater.from(this)
+            val overlayView = inflater.inflate(R.layout.sponsored_warning_overlay, null)
+
+            val warningText = overlayView.findViewById<TextView>(R.id.warning_text)
+            warningText.text = "🛒 SHOP ACCESS COOLDOWN\n$cooldownSeconds second${if (cooldownSeconds == 1) "" else "s"} remaining"
+
+            val params = WindowManager.LayoutParams(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+                } else {
+                    @Suppress("DEPRECATION")
+                    WindowManager.LayoutParams.TYPE_PHONE
+                },
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+                        WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+                PixelFormat.TRANSLUCENT
+            )
+
+            params.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+            params.y = 300 // Slightly lower than sponsored warning
+
+            // Add click listener to dismiss
+            overlayView.setOnTouchListener { _, event ->
+                if (event.action == MotionEvent.ACTION_DOWN) {
+                    Log.d(TAG, "Shop cooldown dismissed by user")
+                    hideCooldownOverlay()
+                    true
+                } else {
+                    false
+                }
+            }
+
+            // Add the overlay
+            windowManager?.addView(overlayView, params)
+            cooldownOverlay = overlayView
+
+            Log.d(TAG, "Shop cooldown overlay added to screen")
+            
+            // Vibrate if enabled
+            if (settingsManager.isVibrationEnabled()) {
+                vibrateDevice()
+            }
+
+            // Auto-hide after delay
+            hideCooldownJob?.cancel()
+            hideCooldownJob = serviceScope.launch {
+                delay(2000) // Show for 2 seconds
+                hideCooldownOverlay()
+            }
+
+        } catch (e: Exception) {
+            Log.e(TAG, "Error showing shop cooldown: ${e.message}", e)
+        }
+    }
+
+    private fun hideCooldownOverlay() {
+        cooldownOverlay?.let { overlay ->
+            try {
+                windowManager?.removeView(overlay)
+                cooldownOverlay = null
+                Log.d(TAG, "Shop cooldown overlay hidden")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error hiding shop cooldown overlay: ${e.message}", e)
+            }
+        }
+    }
+
+    private fun clearShopTabOverlays() {
+        shopTabOverlays.forEach { overlay ->
+            try {
+                windowManager?.removeView(overlay)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error removing shop tab overlay: ${e.message}", e)
+            }
+        }
+        shopTabOverlays.clear()
+        Log.d(TAG, "Cleared all shop tab overlays")
+    }
+
     private fun clearAllOverlays() {
         Log.d(TAG, "Clearing all overlays")
         hideSponsoredWarning()
         clearBlockingOverlays()
+        clearShopTabOverlays()
+        hideCooldownOverlay()
         hideOverlayJob?.cancel()
+        hideCooldownJob?.cancel()
     }
 
     private fun vibrateDevice() {

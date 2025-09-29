@@ -76,6 +76,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
         
+        // Tips button
+        findViewById<Button>(R.id.tips_button).setOnClickListener {
+            startActivity(Intent(this, TipsActivity::class.java))
+        }
+        
         // Compatibility button
         findViewById<Button>(R.id.compatibility_button_modern).setOnClickListener {
             startActivity(Intent(this, DeviceCompatibilityActivity::class.java))

@@ -208,6 +208,17 @@
                 android:layout_marginBottom="12dp" />
 
             <Button
+                android:id="@+id/tips_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="💡 Tips &amp; Education"
+                android:background="@drawable/button_secondary"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp" />
+
+            <Button
                 android:id="@+id/compatibility_button_modern"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -53,6 +53,12 @@
             android:exported="false"
             android:parentActivityName=".MainActivity" />
 
+        <!-- Tips Activity -->
+        <activity
+            android:name=".TipsActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
         <!-- Accessibility Service -->
         <service
             android:name=".ShopBlockrAccessibilityService"

@@ -16,6 +16,10 @@
         "source": "com.focusguard.adblocker.app-main-35:/drawable/toggle_background.xml"
     },
     {
+        "merged": "com.focusguard.adblocker.app-merged_res-33:/layout_activity_tips.xml.flat",
+        "source": "com.focusguard.adblocker.app-main-35:/layout/activity_tips.xml"
+    },
+    {
         "merged": "com.focusguard.adblocker.app-merged_res-33:/mipmap-mdpi_ic_launcher_round.xml.flat",
         "source": "com.focusguard.adblocker.app-main-35:/mipmap-mdpi/ic_launcher_round.xml"
     },

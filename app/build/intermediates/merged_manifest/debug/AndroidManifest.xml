@@ -73,6 +73,12 @@
             android:exported="false"
             android:parentActivityName="com.focusguard.adblocker.MainActivity" />
 
+        <!-- Tips Activity -->
+        <activity
+            android:name="com.focusguard.adblocker.TipsActivity"
+            android:exported="false"
+            android:parentActivityName="com.focusguard.adblocker.MainActivity" />
+
         <!-- Accessibility Service -->
         <service
             android:name="com.focusguard.adblocker.ShopBlockrAccessibilityService"

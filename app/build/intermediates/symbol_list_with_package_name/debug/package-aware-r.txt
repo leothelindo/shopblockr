@@ -3198,6 +3198,8 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
+id ads_per_minute
+id ads_per_session
 id alertTitle
 id aligned
 id all
@@ -3224,6 +3226,7 @@ id beginOnFirstDraw
 id beginning
 id bestChoice
 id blocking
+id blocking_effectiveness
 id bottom
 id bounce
 id bounceBoth
@@ -3263,6 +3266,7 @@ id content
 id contentPanel
 id contiguous
 id continuousVelocity
+id cooldowns_triggered
 id coordinator
 id cos
 id counterclockwise
@@ -3271,6 +3275,7 @@ id currentState
 id custom
 id customPanel
 id cut
+id daily_app_time
 id daily_savings_amount
 id date_picker_actions
 id decelerate
@@ -3319,6 +3324,7 @@ id escape
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id export_data_button
 id fade
 id fill
 id fill_horizontal
@@ -3370,6 +3376,7 @@ id jumpToEnd
 id jumpToStart
 id labeled
 id layout
+id learn_more_count
 id left
 id leftToRight
 id legacy
@@ -3378,6 +3385,7 @@ id line3
 id linear
 id listMode
 id list_item
+id live_shopping_count
 id m3_side_sheet
 id main_toggle_switch
 id marquee
@@ -3478,6 +3486,8 @@ id outline
 id outward
 id overlay_permission_button
 id overlay_status
+id overlay_warnings_toggle
+id overlays_shown
 id overshoot
 id packed
 id parallax
@@ -3488,6 +3498,7 @@ id parent_matrix
 id password_toggle
 id path
 id pathRelative
+id peak_ad_hours
 id peekHeight
 id percent
 id pin
@@ -3500,6 +3511,7 @@ id radio
 id ratio
 id rectangles
 id refresh_button
+id regular_sponsored_count
 id report_drawn
 id reverseSawtooth
 id right
@@ -3539,6 +3551,13 @@ id setup_overlay_button
 id setup_section
 id sharedValueSet
 id sharedValueUnset
+id shop_blocking_mode_button
+id shop_blocking_mode_text
+id shop_clicks_blocked
+id shop_cooldown_container
+id shop_cooldown_slider
+id shop_cooldown_text
+id shop_now_count
 id shortcut
 id showCustom
 id showHome
@@ -3608,6 +3627,7 @@ id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
 id time
+id tips_button
 id title
 id titleDividerNoCustom
 id title_template
@@ -3617,6 +3637,7 @@ id top
 id topPanel
 id total_ads_count
 id total_savings_amount
+id total_sessions
 id touch_outside
 id transitionToEnd
 id transitionToStart
@@ -3635,6 +3656,7 @@ id unlabeled
 id up
 id useLogo
 id vertical_only
+id vibration_toggle
 id view_offset_helper
 id view_transition
 id view_tree_lifecycle_owner
@@ -3643,6 +3665,8 @@ id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
+id warning_duration_slider
+id warning_duration_text
 id warning_text
 id week_ads_count
 id weekly_savings_amount
@@ -3773,6 +3797,7 @@ layout activity_analytics
 layout activity_device_compatibility
 layout activity_main_modern
 layout activity_settings
+layout activity_tips
 layout blocking_overlay
 layout custom_dialog
 layout design_bottom_navigation_item

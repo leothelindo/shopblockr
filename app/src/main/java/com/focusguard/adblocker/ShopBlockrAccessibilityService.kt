@@ -23,7 +23,9 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
             "shopping_cart",
             "product_link",
             "tiktok_shop",
-            "shop_button"
+            "shop_button",
+            "learn_more",
+            "learn more"
         )
         
         // Precise sponsored content indicators (excluding generic "shop")
@@ -37,7 +39,8 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
             "#sponsored",
             "partnership with",
             "paid promotion",
-            "advertiser"
+            "advertiser",
+            "learn more"
         )
         
         // TikTok Shop navigation elements (these should trigger countdown, not sponsor warnings)
@@ -71,6 +74,10 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
     private val contentChangeDebounceMs = 500L // 0.5 seconds for better live content responsiveness
     private var lastPeriodicScanTime = 0L
     private val periodicScanIntervalMs = 3000L // Scan every 3 seconds for live content
+    
+    // Shop blocking tracking
+    private var shopCooldownStartTime = 0L
+    private var isShopCooldownActive = false
 
     override fun onServiceConnected() {
         super.onServiceConnected()
@@ -97,7 +104,7 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
             if (accessibilityEvent.packageName == TIKTOK_PACKAGE) {
                 Log.v(TAG, "TikTok event: ${AccessibilityEvent.eventTypeToString(accessibilityEvent.eventType)}")
                 
-                // Handle different event types - focus only on text changes
+                // Handle different event types - optimized for live content detection
                 when (accessibilityEvent.eventType) {
                     AccessibilityEvent.TYPE_VIEW_CLICKED -> {
                         Log.v(TAG, "TikTok click event detected")
@@ -105,6 +112,22 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
                         handleClickEvent(accessibilityEvent)
                         // Track clicks for analytics
                         clickTracker.trackClicks(accessibilityEvent, this)
+                    }
+                    AccessibilityEvent.TYPE_VIEW_FOCUSED -> {
+                        val currentTime = System.currentTimeMillis()
+                        if (currentTime - lastContentChangeTime > contentChangeDebounceMs) {
+                            Log.v(TAG, "TikTok view focused - checking for shopping elements")
+                            lastContentChangeTime = currentTime
+                            handleTikTokEvent()
+                        }
+                    }
+                    AccessibilityEvent.TYPE_VIEW_SCROLLED -> {
+                        val currentTime = System.currentTimeMillis()
+                        if (currentTime - lastPeriodicScanTime > periodicScanIntervalMs / 2) { // More frequent on scroll
+                            Log.v(TAG, "TikTok scroll detected - checking for live shopping")
+                            lastPeriodicScanTime = currentTime
+                            handleTikTokEvent()
+                        }
                     }
                     AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED -> {
                         val currentTime = System.currentTimeMillis()
@@ -142,6 +165,10 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
     private fun handleTikTokEvent() {
         val rootNode = rootInActiveWindow
         rootNode?.let { 
+            // Detect shop tab elements if shop blocking is enabled
+            if (settingsManager.isShopBlockingEnabled()) {
+                detectShopTabs(it)
+            }
             // Detect shopping elements in posts, not navigation
             detectShoppingElements(it)
             // Detect sponsored content and shopping content
@@ -153,9 +180,122 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
         val clickedNode = event.source
         Log.v(TAG, "Click event detected")
         
-        // Track clicks for analytics only - no longer blocking shop tabs
+        // Check if this is a shop tab click that should be blocked/delayed
+        if (clickedNode != null && settingsManager.isShopBlockingEnabled()) {
+            handleShopTabClick(clickedNode)
+        }
+        
+        // Track clicks for analytics
         if (clickedNode != null) {
             clickTracker.trackClicks(event, this)
+        }
+    }
+    
+    private fun detectShopTabs(rootNode: AccessibilityNodeInfo) {
+        val shopTabNodes = mutableListOf<AccessibilityNodeInfo>()
+        findShopTabs(rootNode, shopTabNodes)
+        
+        if (shopTabNodes.isNotEmpty()) {
+            Log.d(TAG, "Found ${shopTabNodes.size} shop tab elements")
+            
+            when (settingsManager.getShopBlockingMode()) {
+                SettingsManager.SHOP_BLOCKING_OVERLAY -> {
+                    // Send shop tabs to overlay service for blocking
+                    val intent = Intent(this, OverlayService::class.java).apply {
+                        action = OverlayService.ACTION_BLOCK_SHOP_TABS
+                        putExtra(OverlayService.EXTRA_ELEMENT_COUNT, shopTabNodes.size)
+                        
+                        // Extract bounds of shop tab elements
+                        val bounds = shopTabNodes.mapNotNull { node ->
+                            val rect = android.graphics.Rect()
+                            node.getBoundsInScreen(rect)
+                            if (!rect.isEmpty) {
+                                intArrayOf(rect.left, rect.top, rect.right, rect.bottom)
+                            } else null
+                        }.toTypedArray()
+                        
+                        putExtra(OverlayService.EXTRA_ELEMENT_BOUNDS, bounds)
+                    }
+                    startService(intent)
+                }
+                SettingsManager.SHOP_BLOCKING_COOLDOWN -> {
+                    // Cooldown mode is handled in click events
+                    Log.d(TAG, "Shop tabs detected - cooldown mode active")
+                }
+            }
+        }
+    }
+    
+    private fun findShopTabs(node: AccessibilityNodeInfo, results: MutableList<AccessibilityNodeInfo>) {
+        // Check current node for shop tab indicators
+        val text = node.text?.toString()?.lowercase() ?: ""
+        val contentDesc = node.contentDescription?.toString()?.lowercase() ?: ""
+        val resourceId = node.viewIdResourceName?.lowercase() ?: ""
+        
+        // Look for shop tab elements, especially at the top of the screen
+        val rect = android.graphics.Rect()
+        node.getBoundsInScreen(rect)
+        
+        // Focus on elements in the top navigation area (typically y < 300)
+        val isInTopNavigation = rect.top < 300
+        
+        val isShopTab = SHOP_TAB_ELEMENTS.any { element ->
+            text.contains(element) || contentDesc.contains(element) || resourceId.contains(element)
+        }
+        
+        if (isShopTab && isInTopNavigation && node.isClickable) {
+            results.add(node)
+            Log.d(TAG, "Found shop tab: text='$text', desc='$contentDesc', bounds=$rect")
+        }
+        
+        // Recursively check children
+        for (i in 0 until node.childCount) {
+            val child = node.getChild(i)
+            child?.let { findShopTabs(it, results) }
+        }
+    }
+    
+    private fun handleShopTabClick(clickedNode: AccessibilityNodeInfo) {
+        val text = clickedNode.text?.toString()?.lowercase() ?: ""
+        val contentDesc = clickedNode.contentDescription?.toString()?.lowercase() ?: ""
+        val resourceId = clickedNode.viewIdResourceName?.lowercase() ?: ""
+        
+        val isShopTabClick = SHOP_TAB_ELEMENTS.any { element ->
+            text.contains(element) || contentDesc.contains(element) || resourceId.contains(element)
+        }
+        
+        if (isShopTabClick && settingsManager.getShopBlockingMode() == SettingsManager.SHOP_BLOCKING_COOLDOWN) {
+            val currentTime = System.currentTimeMillis()
+            val cooldownDuration = settingsManager.getShopCooldownSeconds() * 1000L
+            
+            if (!isShopCooldownActive) {
+                // Start cooldown
+                shopCooldownStartTime = currentTime
+                isShopCooldownActive = true
+                Log.d(TAG, "Shop tab cooldown started for ${settingsManager.getShopCooldownSeconds()} seconds")
+                
+                // Show cooldown overlay
+                val intent = Intent(this, OverlayService::class.java).apply {
+                    action = OverlayService.ACTION_SHOW_SHOP_COOLDOWN
+                    putExtra(OverlayService.EXTRA_COOLDOWN_SECONDS, settingsManager.getShopCooldownSeconds())
+                }
+                startService(intent)
+                
+            } else if (currentTime - shopCooldownStartTime >= cooldownDuration) {
+                // Cooldown expired, allow click
+                isShopCooldownActive = false
+                Log.d(TAG, "Shop tab cooldown expired, click allowed")
+            } else {
+                // Still in cooldown, show remaining time
+                val remainingSeconds = ((cooldownDuration - (currentTime - shopCooldownStartTime)) / 1000).toInt() + 1
+                Log.d(TAG, "Shop tab click blocked - $remainingSeconds seconds remaining")
+                
+                val intent = Intent(this, OverlayService::class.java).apply {
+                    action = OverlayService.ACTION_SHOW_SHOP_COOLDOWN
+                    putExtra(OverlayService.EXTRA_COOLDOWN_SECONDS, remainingSeconds)
+                }
+                startService(intent)
+            }
         }
     }
     
@@ -292,13 +432,14 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
         text.contains("find shopping from tiktok", ignoreCase = true) ||
         contentDesc.contains("find shopping from tiktok", ignoreCase = true)
         
-        // Enhanced live shopping detection - look for various selling indicators in live streams
+        // Enhanced live shopping detection - more aggressive for live streams
         val hasLiveShoppingContent = 
-            // Direct live + shopping combinations (including LIVE now)
-            ((text.contains("live now", ignoreCase = true) || text.contains("LIVE now", ignoreCase = false)) &&
+            // Direct live indicators (any form of LIVE)
+            (text.contains("live", ignoreCase = true) || text.contains("LIVE", ignoreCase = false) ||
+             contentDesc.contains("live", ignoreCase = true) || contentDesc.contains("LIVE", ignoreCase = false)) &&
              (text.contains("shop", ignoreCase = true) ||
               text.contains("gold star seller", ignoreCase = true) ||
-                     text.contains("silver star seller", ignoreCase = true) ||
+              text.contains("silver star seller", ignoreCase = true) ||
               text.contains("authorized seller", ignoreCase = true) ||
               text.contains("official shop", ignoreCase = true) ||
               text.contains("sold", ignoreCase = true) ||
@@ -312,7 +453,9 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
               text.contains("price", ignoreCase = true) ||
               text.contains("order", ignoreCase = true) ||
               text.contains("checkout", ignoreCase = true) ||
-                    text.contains("join the giveaway happening now", ignoreCase = true)))
+              text.contains("join the giveaway happening now", ignoreCase = true) ||
+              text.contains("viewers", ignoreCase = true) ||
+              text.contains("watching", ignoreCase = true)) ||
 
             
             // Content description live shopping
