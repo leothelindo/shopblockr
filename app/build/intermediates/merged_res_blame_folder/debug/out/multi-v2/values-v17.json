@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.focusguard.adblocker.app-mergeDebugResources-31:/values-v17/values-v17.xml",
+            "outputFile": "com.focusguard.adblocker.app-mergeDebugResources-39:/values-v17/values-v17.xml",
             "map": [
                 {
                     "source": "/Users/leolindo/.gradle/caches/transforms-3/0982889b3b331f580a1e7f6a9623a3a6/transformed/appcompat-1.7.0/res/values-v17/values-v17.xml",

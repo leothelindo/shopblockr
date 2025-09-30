@@ -74,7 +74,7 @@
     </style>
     
     <!-- Custom Dialog Style with White Background -->
-    <style name="ShopBlockr.Dialog" parent="Theme.Material3.Dialog">
+    <style name="ShopBlockr.Dialog" parent="Theme.Material3.DayNight">
         <item name="android:windowBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/black</item>

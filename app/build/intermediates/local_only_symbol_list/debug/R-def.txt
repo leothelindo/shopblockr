@@ -75,6 +75,7 @@ id daily_savings_amount
 id daily_screen_time
 id device_model
 id export_data_button
+id grant_usage_access_button
 id impulses_prevented_count
 id learn_more_count
 id live_shopping_count
@@ -121,6 +122,7 @@ mipmap ic_launcher_round
 string accessibility_service_description
 string app_name
 style Base.Theme.ShopBlockr
+style ShopBlockr.Dialog
 style ShopBlockr.Switch
 style TextAppearance.ShopBlockr.Body
 style TextAppearance.ShopBlockr.Headline

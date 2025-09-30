@@ -114,6 +114,8 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
             return
         }
         
+        // Free version - no subscription checks needed
+        
         event?.let { accessibilityEvent ->
             if (accessibilityEvent.packageName == TIKTOK_PACKAGE) {
                 Log.v(TAG, "TikTok event: ${AccessibilityEvent.eventTypeToString(accessibilityEvent.eventType)}")

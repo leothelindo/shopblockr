@@ -41,6 +41,10 @@ class AnalyticsActivity : AppCompatActivity() {
         findViewById<Button>(R.id.export_data_button).setOnClickListener {
             exportAnalyticsData()
         }
+        
+        findViewById<Button>(R.id.grant_usage_access_button).setOnClickListener {
+            requestUsageStatsPermission()
+        }
     }
     
     private fun updateAnalytics() {
@@ -59,6 +63,9 @@ class AnalyticsActivity : AppCompatActivity() {
         
         val analyticsData = adAnalytics.getAllAnalyticsData()
         val decimalFormat = DecimalFormat("#.##")
+        
+        // Hide the grant usage access button since permission is granted
+        findViewById<Button>(R.id.grant_usage_access_button).visibility = android.view.View.GONE
         
         // Daily/Weekly screen time
         findViewById<TextView>(R.id.daily_screen_time).text = adAnalytics.getFormattedTime(analyticsData.dailyScreenTimeMinutes)
@@ -207,9 +214,12 @@ class AnalyticsActivity : AppCompatActivity() {
         val analyticsData = adAnalytics.getAllAnalyticsData()
         val decimalFormat = DecimalFormat("#.##")
         
+        // Show the grant usage access button
+        findViewById<Button>(R.id.grant_usage_access_button).visibility = android.view.View.VISIBLE
+        
         // Show N/A for screen time data
-        findViewById<TextView>(R.id.daily_screen_time).text = "N/A"
-        findViewById<TextView>(R.id.weekly_screen_time).text = "N/A"
+        findViewById<TextView>(R.id.daily_screen_time).text = "N/A - Grant Usage Access"
+        findViewById<TextView>(R.id.weekly_screen_time).text = "N/A - Grant Usage Access"
         
         // Show available data (ads seen, etc.)
         findViewById<TextView>(R.id.ads_per_hour).text = "N/A"
@@ -259,8 +269,19 @@ class AnalyticsActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.summary_text).text = summaryText
     }
     
+    private fun requestUsageStatsPermission() {
+        try {
+            val intent = adAnalytics.requestUsageStatsPermission()
+            startActivity(intent)
+            Toast.makeText(this, "Please find 'ShopBlockr' and enable usage access", Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Unable to open settings. Please manually grant usage access permission.", Toast.LENGTH_LONG).show()
+        }
+    }
+    
     override fun onResume() {
         super.onResume()
+        // Refresh analytics when returning from settings
         updateAnalytics()
     }
 }

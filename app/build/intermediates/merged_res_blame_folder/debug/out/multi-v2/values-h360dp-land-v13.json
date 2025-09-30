@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.focusguard.adblocker.app-mergeDebugResources-31:/values-h360dp-land-v13/values-h360dp-land-v13.xml",
+            "outputFile": "com.focusguard.adblocker.app-mergeDebugResources-39:/values-h360dp-land-v13/values-h360dp-land-v13.xml",
             "map": [
                 {
                     "source": "/Users/leolindo/.gradle/caches/transforms-3/c29f1a47a7b2f2bfd5db2868f2be0231/transformed/material-1.12.0/res/values-h360dp-land-v13/values-h360dp-land-v13.xml",

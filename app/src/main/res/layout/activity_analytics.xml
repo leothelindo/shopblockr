@@ -102,6 +102,19 @@
 
             </LinearLayout>
 
+            <!-- Grant Usage Access Button (shown when permission not granted) -->
+            <Button
+                android:id="@+id/grant_usage_access_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Grant Usage Access for Screen Time"
+                android:background="@drawable/button_primary"
+                android:textColor="@color/text_on_primary"
+                android:textSize="14sp"
+                android:paddingVertical="12dp"
+                android:layout_marginTop="12dp"
+                android:visibility="gone" />
+
         </LinearLayout>
 
         <!-- Quick Stats -->

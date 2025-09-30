@@ -124,11 +124,13 @@ class SettingsActivity : AppCompatActivity() {
             updateUI()
         }
         
+        
         // Back button
         findViewById<Button>(R.id.back_button).setOnClickListener {
             finish()
         }
     }
+    
     
     private fun updateUI() {
         val isAccessibilityServiceEnabled = isAccessibilityServiceEnabled()

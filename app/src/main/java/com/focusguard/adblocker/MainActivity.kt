@@ -106,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     
+    
     private fun updateUI() {
         val analyticsData = adAnalytics.getAllAnalyticsData()
         val isAccessibilityServiceEnabled = isAccessibilityServiceEnabled()
@@ -127,6 +128,7 @@ class MainActivity : AppCompatActivity() {
         }
         
         // Status with color coding
+        
         when {
             !isAppEnabled -> {
                 statusText.text = "🔴 ShopBlockr is Disabled"
@@ -230,4 +232,5 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         updateUI()
     }
+    
 }

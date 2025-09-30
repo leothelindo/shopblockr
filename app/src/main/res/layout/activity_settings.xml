@@ -38,6 +38,7 @@
             android:textColor="@color/text_secondary"
             android:layout_marginBottom="20dp" />
 
+
         <!-- Service Toggle -->
         <LinearLayout
             android:layout_width="match_parent"
