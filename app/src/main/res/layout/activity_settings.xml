@@ -14,11 +14,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="⚙️ Settings"
-            android:textSize="24sp"
+            android:text="Settings"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="8dp" />
+            
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Configure your ad blocking preferences"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="24dp" />
 
         <!-- Status -->
         <TextView
@@ -52,7 +60,8 @@
             <Switch
                 android:id="@+id/service_enabled_toggle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="@style/ShopBlockr.Switch" />
 
         </LinearLayout>
 
@@ -69,11 +78,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🔐 Permissions"
-                android:textSize="18sp"
+                android:text="Required Permissions"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="6dp" />
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Essential system access for operation"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="16dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -129,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:text="Configure Accessibility"
                 android:background="@drawable/button_secondary"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/text_on_primary"
                 android:layout_marginBottom="8dp" />
 
             <Button
@@ -138,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:text="Grant Overlay Permission"
                 android:background="@drawable/button_secondary"
-                android:textColor="@color/text_primary" />
+                android:textColor="@color/text_on_primary" />
 
         </LinearLayout>
 
@@ -155,11 +172,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="⚠️ Warning Settings"
-                android:textSize="18sp"
+                android:text="Alert Configuration"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="6dp" />
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Customize notification and warning preferences"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="16dp" />
 
             <!-- Overlay Warnings Toggle -->
             <LinearLayout
@@ -180,7 +205,8 @@
                 <Switch
                     android:id="@+id/overlay_warnings_toggle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    style="@style/ShopBlockr.Switch" />
 
             </LinearLayout>
 
@@ -203,7 +229,8 @@
                 <Switch
                     android:id="@+id/vibration_toggle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    style="@style/ShopBlockr.Switch" />
 
             </LinearLayout>
 
@@ -291,13 +318,45 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🛒 Shop Tab Blocking"
-                android:textSize="18sp"
+                android:text="Shopping Protection"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="6dp" />
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Block shopping features and configure auto-swipe"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="16dp" />
 
             <!-- Shop Blocking Mode -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Enable Shop Tab Blocking"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary" />
+
+                <Switch
+                    android:id="@+id/shop_blocking_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ShopBlockr.Switch" />
+
+            </LinearLayout>
+
+            <!-- Auto-Swipe Toggle -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -309,96 +368,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Shop Blocking Mode"
+                    android:text="Auto-Swipe on Sponsored Content"
                     android:textSize="16sp"
                     android:textColor="@color/text_primary" />
 
-                <TextView
-                    android:id="@+id/shop_blocking_mode_text"
+                <Switch
+                    android:id="@+id/auto_swipe_toggle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Off"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_secondary" />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/shop_blocking_mode_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Change Mode"
-                android:background="@drawable/button_secondary"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="12dp" />
-
-            <!-- Shop Cooldown Slider (only visible when cooldown mode is selected) -->
-            <LinearLayout
-                android:id="@+id/shop_cooldown_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Cooldown Duration"
-                        android:textSize="16sp"
-                        android:textColor="@color/text_primary" />
-
-                    <TextView
-                        android:id="@+id/shop_cooldown_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="3 seconds"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_secondary" />
-
-                </LinearLayout>
-
-                <SeekBar
-                    android:id="@+id/shop_cooldown_slider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="9"
-                    android:progress="2"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="4dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="1s"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_secondary"
-                        android:gravity="start" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="10s"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_secondary"
-                        android:gravity="end" />
-
-                </LinearLayout>
+                    style="@style/ShopBlockr.Switch" />
 
             </LinearLayout>
 
@@ -417,11 +395,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="📊 Analytics"
-                android:textSize="18sp"
+                android:text="Analytics &amp; Data"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="6dp" />
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usage statistics and data management"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:id="@+id/analytics_summary"
@@ -431,6 +417,15 @@
                 android:textSize="14sp"
                 android:textColor="@color/text_secondary"
                 android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/usage_access_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Grant Usage Access Permission"
+                android:background="@drawable/button_secondary"
+                android:textColor="@color/text_on_primary"
+                android:layout_marginBottom="8dp" />
 
             <Button
                 android:id="@+id/clear_data_button"
@@ -447,7 +442,7 @@
             android:id="@+id/back_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="← Back"
+            android:text="Back"
             android:background="@drawable/button_primary"
             android:textColor="@color/text_on_primary"
             android:layout_marginTop="20dp" />

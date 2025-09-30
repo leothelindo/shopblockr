@@ -11,25 +11,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="24dp">
 
         <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/card_background"
-            android:padding="24dp"
-            android:layout_marginBottom="20dp"
-            android:elevation="4dp">
+            android:background="@drawable/card_background_elevated"
+            android:padding="28dp"
+            android:layout_marginBottom="24dp"
+            android:elevation="3dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🛡️ ShopBlockr"
-                android:textSize="28sp"
-                android:textStyle="bold"
+                android:text="ShopBlockr"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Headline"
+                android:textSize="32sp"
                 android:textColor="@color/text_primary"
+                android:layout_marginBottom="8dp" />
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TikTok Shopping Protection"
+                android:textSize="16sp"
+                android:textColor="@color/text_secondary"
                 android:layout_marginBottom="8dp" />
 
             <TextView
@@ -37,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="🟡 Checking status..."
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Body"
                 android:textSize="18sp"
                 android:textColor="@color/text_secondary" />
 
@@ -46,22 +55,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/toggle_background"
-                android:padding="12dp">
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Enable Protection"
-                    android:textSize="16sp"
+                    android:textAppearance="@style/TextAppearance.ShopBlockr.Title"
+                    android:textSize="18sp"
                     android:textColor="@color/text_primary" />
 
                 <Switch
                     android:id="@+id/main_toggle_switch"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    style="@style/ShopBlockr.Switch" />
 
             </LinearLayout>
 
@@ -73,18 +84,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/card_background"
-            android:padding="20dp"
-            android:layout_marginBottom="20dp"
-            android:elevation="4dp">
+            android:padding="24dp"
+            android:layout_marginBottom="24dp"
+            android:elevation="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="📊 Detection Stats"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:text="Detection Statistics"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Title"
+                android:textSize="22sp"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="6dp" />
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sponsored content detected and blocked"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="20dp" />
 
             <!-- Today -->
             <LinearLayout
@@ -181,52 +200,60 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/card_background"
-            android:padding="20dp"
-            android:layout_marginBottom="20dp"
-            android:elevation="4dp">
+            android:padding="24dp"
+            android:layout_marginBottom="24dp"
+            android:elevation="2dp">
 
             <Button
                 android:id="@+id/analytics_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="📈 View Analytics"
+                android:text="View Analytics"
                 android:background="@drawable/button_primary"
                 android:textColor="@color/text_on_primary"
                 android:textSize="16sp"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="24dp"
+                android:layout_marginBottom="16dp"
+                android:minHeight="56dp" />
 
             <Button
                 android:id="@+id/settings_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="⚙️ Settings"
+                android:text="Settings"
                 android:background="@drawable/button_secondary"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/text_on_primary"
                 android:textSize="16sp"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="24dp"
+                android:layout_marginBottom="16dp"
+                android:minHeight="56dp" />
 
             <Button
                 android:id="@+id/tips_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="💡 Tips &amp; Education"
+                android:text="Tips &amp; Education"
                 android:background="@drawable/button_secondary"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/text_on_primary"
                 android:textSize="16sp"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="24dp"
+                android:layout_marginBottom="16dp"
+                android:minHeight="56dp" />
 
             <Button
                 android:id="@+id/compatibility_button_modern"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🔧 Device Help"
+                android:text="Device Help"
                 android:background="@drawable/button_secondary"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/text_on_primary"
                 android:textSize="16sp"
-                android:padding="12dp" />
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="24dp"
+                android:minHeight="56dp" />
 
         </LinearLayout>
 
@@ -237,17 +264,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/warning_card_background"
-            android:padding="20dp"
+            android:padding="24dp"
             android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="⚙️ Setup Required"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:text="Setup Required"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Title"
+                android:textSize="22sp"
                 android:textColor="@color/warning_text"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="8dp" />
+                
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Complete setup to enable protection features"
+                android:textSize="14sp"
+                android:textColor="@color/warning_text"
+                android:layout_marginBottom="20dp" />
 
             <Button
                 android:id="@+id/setup_accessibility_button"
@@ -257,8 +292,10 @@
                 android:background="@drawable/button_warning"
                 android:textColor="@color/text_on_warning"
                 android:textSize="16sp"
-                android:padding="12dp"
-                android:layout_marginBottom="12dp" />
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="24dp"
+                android:layout_marginBottom="16dp"
+                android:minHeight="56dp" />
 
             <Button
                 android:id="@+id/setup_overlay_button"
@@ -268,7 +305,9 @@
                 android:background="@drawable/button_warning"
                 android:textColor="@color/text_on_warning"
                 android:textSize="16sp"
-                android:padding="12dp" />
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="24dp"
+                android:minHeight="56dp" />
 
         </LinearLayout>
 

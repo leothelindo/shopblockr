@@ -13,6 +13,8 @@ class SettingsManager(private val context: Context) {
         private const val KEY_WARNING_DURATION_SECONDS = "warning_duration_seconds"
         private const val KEY_SHOP_BLOCKING_MODE = "shop_blocking_mode"
         private const val KEY_SHOP_COOLDOWN_SECONDS = "shop_cooldown_seconds"
+        private const val KEY_AUTO_SWIPE_ENABLED = "auto_swipe_enabled"
+        private const val KEY_USAGE_ACCESS_ASKED = "usage_access_asked"
         
         // Warning duration range
         const val MIN_DURATION_SECONDS = 1
@@ -22,12 +24,6 @@ class SettingsManager(private val context: Context) {
         // Shop blocking modes
         const val SHOP_BLOCKING_OFF = 0
         const val SHOP_BLOCKING_OVERLAY = 1
-        const val SHOP_BLOCKING_COOLDOWN = 2
-        
-        // Shop cooldown range
-        const val MIN_COOLDOWN_SECONDS = 1
-        const val MAX_COOLDOWN_SECONDS = 10
-        const val DEFAULT_COOLDOWN_SECONDS = 3
     }
     
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -80,7 +76,7 @@ class SettingsManager(private val context: Context) {
     }
     
     fun setShopBlockingMode(mode: Int) {
-        val clampedMode = mode.coerceIn(SHOP_BLOCKING_OFF, SHOP_BLOCKING_COOLDOWN)
+        val clampedMode = mode.coerceIn(SHOP_BLOCKING_OFF, SHOP_BLOCKING_OVERLAY)
         prefs.edit().putInt(KEY_SHOP_BLOCKING_MODE, clampedMode).apply()
     }
     
@@ -88,26 +84,29 @@ class SettingsManager(private val context: Context) {
         return when (getShopBlockingMode()) {
             SHOP_BLOCKING_OFF -> "Off"
             SHOP_BLOCKING_OVERLAY -> "Block with overlay"
-            SHOP_BLOCKING_COOLDOWN -> "Cooldown delay"
             else -> "Off"
         }
     }
     
-    fun getShopCooldownSeconds(): Int {
-        return prefs.getInt(KEY_SHOP_COOLDOWN_SECONDS, DEFAULT_COOLDOWN_SECONDS)
-    }
-    
-    fun setShopCooldownSeconds(seconds: Int) {
-        val clampedSeconds = seconds.coerceIn(MIN_COOLDOWN_SECONDS, MAX_COOLDOWN_SECONDS)
-        prefs.edit().putInt(KEY_SHOP_COOLDOWN_SECONDS, clampedSeconds).apply()
-    }
-    
-    fun getShopCooldownText(): String {
-        val seconds = getShopCooldownSeconds()
-        return "$seconds second${if (seconds == 1) "" else "s"}"
-    }
-    
     fun isShopBlockingEnabled(): Boolean {
         return getShopBlockingMode() != SHOP_BLOCKING_OFF
+    }
+    
+    // Auto-swipe settings
+    fun isAutoSwipeEnabled(): Boolean {
+        return prefs.getBoolean(KEY_AUTO_SWIPE_ENABLED, false)
+    }
+    
+    fun setAutoSwipeEnabled(enabled: Boolean) {
+        prefs.edit().putBoolean(KEY_AUTO_SWIPE_ENABLED, enabled).apply()
+    }
+    
+    // Usage access tracking
+    fun hasBeenAskedForUsageAccess(): Boolean {
+        return prefs.getBoolean(KEY_USAGE_ACCESS_ASKED, false)
+    }
+    
+    fun setUsageAccessAsked(asked: Boolean) {
+        prefs.edit().putBoolean(KEY_USAGE_ACCESS_ASKED, asked).apply()
     }
 }

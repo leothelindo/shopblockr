@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_primary"
-    android:padding="16dp">
+    android:padding="24dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,11 +14,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="💡 Tips &amp; Education"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:text="Tips &amp; Education"
+            android:textAppearance="@style/TextAppearance.ShopBlockr.Headline"
+            android:textSize="28sp"
             android:textColor="@color/text_primary"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="8dp" />
+            
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Learn about digital advertising and protect yourself"
+            android:textSize="16sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="24dp" />
 
         <!-- How TikTok Makes Money -->
         <LinearLayout
@@ -26,26 +34,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/card_background"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"
+            android:padding="20dp"
+            android:layout_marginBottom="20dp"
             android:elevation="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="💰 How TikTok Makes Money"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:text="How TikTok Makes Money"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Title"
+                android:textSize="20sp"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="• Advertising Revenue: Brands pay TikTok to show ads to users\n• Creator Fund: Sharing revenue with popular creators\n• TikTok Shop: Taking commission from sales made through the app\n• Live Gifts: Users buy virtual gifts for creators, TikTok takes a cut\n• Data Collection: User behavior data is valuable for targeting ads"
-                android:textSize="14sp"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Body"
+                android:textSize="15sp"
                 android:textColor="@color/text_secondary"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="6dp" />
 
         </LinearLayout>
 
@@ -55,26 +64,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/card_background"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"
+            android:padding="20dp"
+            android:layout_marginBottom="20dp"
             android:elevation="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="📺 How TikTok Shows Ads"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:text="How TikTok Shows Ads"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Title"
+                android:textSize="20sp"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="• In-Feed Ads: Appear between regular videos in your For You page\n• Branded Hashtag Challenges: Companies sponsor trending challenges\n• TopView Ads: Full-screen ads when you first open the app\n• Brand Takeovers: Ads that appear before other content\n• Spark Ads: Promoted user-generated content that looks organic\n• Shopping Ads: Direct product promotion with 'Shop Now' buttons\n• Live Shopping: Real-time product sales during live streams"
-                android:textSize="14sp"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Body"
+                android:textSize="15sp"
                 android:textColor="@color/text_secondary"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="6dp" />
 
         </LinearLayout>
 
@@ -91,16 +101,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🕵️ Hidden Advertising in User Content"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:text="Hidden Advertising in User Content"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Title"
+                android:textSize="20sp"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="⚠️ Not all advertising is clearly labeled! Watch for:\n\n• Influencer Marketing: Creators promoting products for payment\n• Affiliate Links: Creators earn commission from purchases\n• Product Placements: Brands paying for subtle product mentions\n• Fake Reviews: Paid positive reviews disguised as honest opinions\n• Trend Manipulation: Brands creating 'organic' viral trends\n• Algorithm Gaming: Companies paying to boost content artificially"
+                android:text="Not all advertising is clearly labeled! Watch for:\n\n• Influencer Marketing: Creators promoting products for payment\n• Affiliate Links: Creators earn commission from purchases\n• Product Placements: Brands paying for subtle product mentions\n• Fake Reviews: Paid positive reviews disguised as honest opinions\n• Trend Manipulation: Brands creating 'organic' viral trends\n• Algorithm Gaming: Companies paying to boost content artificially"
                 android:textSize="14sp"
                 android:textColor="@color/text_primary"
                 android:lineSpacingExtra="4dp" />
@@ -113,26 +123,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/card_background"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"
+            android:padding="20dp"
+            android:layout_marginBottom="20dp"
             android:elevation="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🔍 How to Spot Sponsored Content"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:text="How to Spot Sponsored Content"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Title"
+                android:textSize="20sp"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Red Flags to Watch For:\n\n✓ 'Sponsored' or 'Paid Partnership' labels\n✓ Sudden product focus from creators who don't usually review items\n✓ Perfect lighting/staging that looks too professional\n✓ Overly positive language: 'Amazing!', 'Life-changing!', 'Must-have!'\n✓ Discount codes or special links in bio\n✓ Creators saying 'Link in bio' frequently\n✓ Multiple creators promoting the same product simultaneously\n✓ Products that seem expensive for the creator's usual content"
-                android:textSize="14sp"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Body"
+                android:textSize="15sp"
                 android:textColor="@color/text_secondary"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="6dp" />
 
         </LinearLayout>
 
@@ -142,26 +153,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/card_background"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"
+            android:padding="20dp"
+            android:layout_marginBottom="20dp"
             android:elevation="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🛡️ Protection Tips"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:text="Protection Tips"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Title"
+                android:textSize="20sp"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Stay Smart and Protected:\n\n• Set a monthly spending limit for online purchases\n• Wait 24 hours before buying anything you see on TikTok\n• Research products independently before purchasing\n• Check reviews on multiple platforms, not just TikTok\n• Be extra cautious during sales events and limited-time offers\n• Unlink payment methods from TikTok Shop\n• Question why you 'need' this product\n• Ask: 'Did I want this before seeing this video?'\n• Use ShopBlockr features to add friction to impulse buying"
-                android:textSize="14sp"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Body"
+                android:textSize="15sp"
                 android:textColor="@color/text_secondary"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="6dp" />
 
         </LinearLayout>
 
@@ -171,26 +183,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/card_background"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"
+            android:padding="20dp"
+            android:layout_marginBottom="20dp"
             android:elevation="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🤖 Understanding the Algorithm"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:text="Understanding the Algorithm"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Title"
+                android:textSize="20sp"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="The TikTok algorithm learns your interests to show you more engaging content, but it also:\n\n• Tracks your shopping behavior and shows more product content\n• Learns when you're most likely to make purchases\n• Tests different types of ads to see what you respond to\n• Shares your data with advertisers for better targeting\n• Creates 'filter bubbles' that reinforce your interests\n• Can be manipulated by brands to promote their content\n\nKnowledge is power - understanding how it works helps you stay in control!"
-                android:textSize="14sp"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Body"
+                android:textSize="15sp"
                 android:textColor="@color/text_secondary"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="6dp" />
 
         </LinearLayout>
 
@@ -200,26 +213,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/card_background"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"
+            android:padding="20dp"
+            android:layout_marginBottom="20dp"
             android:elevation="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="📊 Eye-Opening Statistics"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:text="Eye-Opening Statistics"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Title"
+                android:textSize="20sp"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="• 73% of TikTok users have made a purchase based on content they saw\n• Average TikTok user spends 95 minutes per day on the app\n• 1 in 3 users say TikTok influenced a major purchase decision\n• Live shopping streams can generate $1M+ in sales per hour\n• 67% of users report buying things they didn't plan to buy\n• The average impulse purchase amount has increased 32% since 2020\n\nYou're not alone in struggling with impulse purchases - it's by design!"
-                android:textSize="14sp"
+                android:textAppearance="@style/TextAppearance.ShopBlockr.Body"
+                android:textSize="15sp"
                 android:textColor="@color/text_secondary"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="6dp" />
 
         </LinearLayout>
 
@@ -228,10 +242,14 @@
             android:id="@+id/back_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="← Back"
+            android:text="Back"
             android:background="@drawable/button_primary"
             android:textColor="@color/text_on_primary"
-            android:layout_marginTop="8dp" />
+            android:textSize="16sp"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            android:minHeight="56dp" />
 
     </LinearLayout>
 

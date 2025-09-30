@@ -22,222 +22,226 @@
 16    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 16-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:10:5-77
 16-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:10:22-74
-17
-18    <!-- Optional features for better compatibility -->
-19    <uses-feature
-19-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:13:5-87
-20        android:name="android.software.leanback"
-20-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:13:19-59
-21        android:required="false" />
-21-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:13:60-84
-22    <uses-feature
-22-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:14:5-90
-23        android:name="android.hardware.touchscreen"
-23-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:14:19-62
-24        android:required="false" />
-24-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:14:63-87
-25
-26    <permission
-26-->[androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
-27        android:name="com.focusguard.adblocker.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-27-->[androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
-28        android:protectionLevel="signature" />
-28-->[androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
-29
-30    <uses-permission android:name="com.focusguard.adblocker.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-30-->[androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
-30-->[androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+17    <!-- Usage Stats permission for tracking app usage -->
+18    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
+18-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:12:5-13:47
+18-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:12:22-75
+19
+20    <!-- Optional features for better compatibility -->
+21    <uses-feature
+21-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:16:5-87
+22        android:name="android.software.leanback"
+22-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:16:19-59
+23        android:required="false" />
+23-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:16:60-84
+24    <uses-feature
+24-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:17:5-90
+25        android:name="android.hardware.touchscreen"
+25-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:17:19-62
+26        android:required="false" />
+26-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:17:63-87
+27
+28    <permission
+28-->[androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+29        android:name="com.focusguard.adblocker.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+29-->[androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+30        android:protectionLevel="signature" />
+30-->[androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
 31
-32    <application
-32-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:16:5-85:19
-33        android:allowBackup="true"
-33-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:17:9-35
-34        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-34-->[androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
-35        android:dataExtractionRules="@xml/data_extraction_rules"
-35-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:18:9-65
-36        android:debuggable="true"
-37        android:extractNativeLibs="false"
-38        android:fullBackupContent="@xml/backup_rules"
-38-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:19:9-54
-39        android:icon="@mipmap/ic_launcher"
-39-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:20:9-43
-40        android:label="@string/app_name"
-40-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:21:9-41
-41        android:roundIcon="@mipmap/ic_launcher_round"
-41-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:22:9-54
-42        android:supportsRtl="true"
-42-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:23:9-35
-43        android:testOnly="true"
-44        android:theme="@style/Theme.ShopBlockr" >
-44-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:24:9-48
-45
-46        <!-- Main Activity -->
-47        <activity
-47-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:28:9-36:20
-48            android:name="com.focusguard.adblocker.MainActivity"
-48-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:29:13-41
-49            android:exported="true"
-49-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:30:13-36
-50            android:theme="@style/Theme.ShopBlockr" >
-50-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:31:13-52
-51            <intent-filter>
-51-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:32:13-35:29
-52                <action android:name="android.intent.action.MAIN" />
-52-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:33:17-69
-52-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:33:25-66
-53
-54                <category android:name="android.intent.category.LAUNCHER" />
-54-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:34:17-77
-54-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:34:27-74
-55            </intent-filter>
-56        </activity>
-57
-58        <!-- Settings Activity -->
-59        <activity
-59-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:39:9-42:58
-60            android:name="com.focusguard.adblocker.SettingsActivity"
-60-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:40:13-45
-61            android:exported="false"
-61-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:41:13-37
-62            android:parentActivityName="com.focusguard.adblocker.MainActivity" />
-62-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:42:13-55
-63
-64        <!-- Analytics Activity -->
-65        <activity
-65-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:45:9-48:58
-66            android:name="com.focusguard.adblocker.AnalyticsActivity"
-66-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:46:13-46
-67            android:exported="false"
-67-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:47:13-37
-68            android:parentActivityName="com.focusguard.adblocker.MainActivity" />
-68-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:48:13-55
-69
-70        <!-- Device Compatibility Activity -->
-71        <activity
-71-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:51:9-54:58
-72            android:name="com.focusguard.adblocker.DeviceCompatibilityActivity"
-72-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:52:13-56
-73            android:exported="false"
-73-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:53:13-37
-74            android:parentActivityName="com.focusguard.adblocker.MainActivity" />
-74-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:54:13-55
-75
-76        <!-- Tips Activity -->
-77        <activity
-77-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:57:9-60:58
-78            android:name="com.focusguard.adblocker.TipsActivity"
-78-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:58:13-41
-79            android:exported="false"
-79-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:59:13-37
-80            android:parentActivityName="com.focusguard.adblocker.MainActivity" />
-80-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:60:13-55
-81
-82        <!-- Accessibility Service -->
-83        <service
-83-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:63:9-73:19
-84            android:name="com.focusguard.adblocker.ShopBlockrAccessibilityService"
-84-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:64:13-59
-85            android:exported="true"
-85-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:65:13-36
-86            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
-86-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:66:13-79
-87            <intent-filter>
-87-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:67:13-69:29
-88                <action android:name="android.accessibilityservice.AccessibilityService" />
-88-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:68:17-92
-88-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:68:25-89
-89            </intent-filter>
-90
-91            <meta-data
-91-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:70:13-72:72
-92                android:name="android.accessibilityservice"
-92-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:71:17-60
-93                android:resource="@xml/accessibility_service_config" />
-93-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:72:17-69
-94        </service>
-95
-96        <!-- Overlay Service -->
-97        <service
-97-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:76:9-78:40
-98            android:name="com.focusguard.adblocker.OverlayService"
-98-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:77:13-43
-99            android:exported="false" />
-99-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:78:13-37
-100
-101        <!-- Notification Service -->
-102        <service
-102-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:81:9-83:40
-103            android:name="com.focusguard.adblocker.NotificationService"
-103-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:82:13-48
-104            android:exported="false" />
-104-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:83:13-37
-105
-106        <provider
-106-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
-107            android:name="androidx.startup.InitializationProvider"
-107-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
-108            android:authorities="com.focusguard.adblocker.androidx-startup"
-108-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
-109            android:exported="false" >
-109-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
-110            <meta-data
-110-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
-111                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-111-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
-112                android:value="androidx.startup" />
-112-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
-113            <meta-data
-113-->[androidx.lifecycle:lifecycle-process:2.8.4] /Users/leolindo/.gradle/caches/transforms-3/616e33b11b77c6c903f3b917a203cb46/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:29:13-31:52
-114                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-114-->[androidx.lifecycle:lifecycle-process:2.8.4] /Users/leolindo/.gradle/caches/transforms-3/616e33b11b77c6c903f3b917a203cb46/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:30:17-78
-115                android:value="androidx.startup" />
-115-->[androidx.lifecycle:lifecycle-process:2.8.4] /Users/leolindo/.gradle/caches/transforms-3/616e33b11b77c6c903f3b917a203cb46/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:31:17-49
-116            <meta-data
-116-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
-117                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-117-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
-118                android:value="androidx.startup" />
-118-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
-119        </provider>
-120
-121        <receiver
-121-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
-122            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-122-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
-123            android:directBootAware="false"
-123-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
-124            android:enabled="true"
-124-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
-125            android:exported="true"
-125-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
-126            android:permission="android.permission.DUMP" >
-126-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
-127            <intent-filter>
-127-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
-128                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-128-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
-128-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
-129            </intent-filter>
-130            <intent-filter>
-130-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
-131                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-131-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
-131-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
-132            </intent-filter>
-133            <intent-filter>
-133-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
-134                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-134-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
-134-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
-135            </intent-filter>
-136            <intent-filter>
-136-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
-137                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-137-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
-137-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
-138            </intent-filter>
-139        </receiver>
-140    </application>
-141
-142</manifest>
+32    <uses-permission android:name="com.focusguard.adblocker.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+32-->[androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+32-->[androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+33
+34    <application
+34-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:19:5-88:19
+35        android:allowBackup="true"
+35-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:20:9-35
+36        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+36-->[androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+37        android:dataExtractionRules="@xml/data_extraction_rules"
+37-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:21:9-65
+38        android:debuggable="true"
+39        android:extractNativeLibs="false"
+40        android:fullBackupContent="@xml/backup_rules"
+40-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:22:9-54
+41        android:icon="@mipmap/ic_launcher"
+41-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:23:9-43
+42        android:label="@string/app_name"
+42-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:24:9-41
+43        android:roundIcon="@mipmap/ic_launcher_round"
+43-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:25:9-54
+44        android:supportsRtl="true"
+44-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:26:9-35
+45        android:testOnly="true"
+46        android:theme="@style/Theme.ShopBlockr" >
+46-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:27:9-48
+47
+48        <!-- Main Activity -->
+49        <activity
+49-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:31:9-39:20
+50            android:name="com.focusguard.adblocker.MainActivity"
+50-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:32:13-41
+51            android:exported="true"
+51-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:33:13-36
+52            android:theme="@style/Theme.ShopBlockr" >
+52-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:34:13-52
+53            <intent-filter>
+53-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:35:13-38:29
+54                <action android:name="android.intent.action.MAIN" />
+54-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:36:17-69
+54-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:36:25-66
+55
+56                <category android:name="android.intent.category.LAUNCHER" />
+56-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:37:17-77
+56-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:37:27-74
+57            </intent-filter>
+58        </activity>
+59
+60        <!-- Settings Activity -->
+61        <activity
+61-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:42:9-45:58
+62            android:name="com.focusguard.adblocker.SettingsActivity"
+62-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:43:13-45
+63            android:exported="false"
+63-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:44:13-37
+64            android:parentActivityName="com.focusguard.adblocker.MainActivity" />
+64-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:45:13-55
+65
+66        <!-- Analytics Activity -->
+67        <activity
+67-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:48:9-51:58
+68            android:name="com.focusguard.adblocker.AnalyticsActivity"
+68-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:49:13-46
+69            android:exported="false"
+69-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:50:13-37
+70            android:parentActivityName="com.focusguard.adblocker.MainActivity" />
+70-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:51:13-55
+71
+72        <!-- Device Compatibility Activity -->
+73        <activity
+73-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:54:9-57:58
+74            android:name="com.focusguard.adblocker.DeviceCompatibilityActivity"
+74-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:55:13-56
+75            android:exported="false"
+75-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:56:13-37
+76            android:parentActivityName="com.focusguard.adblocker.MainActivity" />
+76-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:57:13-55
+77
+78        <!-- Tips Activity -->
+79        <activity
+79-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:60:9-63:58
+80            android:name="com.focusguard.adblocker.TipsActivity"
+80-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:61:13-41
+81            android:exported="false"
+81-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:62:13-37
+82            android:parentActivityName="com.focusguard.adblocker.MainActivity" />
+82-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:63:13-55
+83
+84        <!-- Accessibility Service -->
+85        <service
+85-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:66:9-76:19
+86            android:name="com.focusguard.adblocker.ShopBlockrAccessibilityService"
+86-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:67:13-59
+87            android:exported="true"
+87-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:68:13-36
+88            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
+88-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:69:13-79
+89            <intent-filter>
+89-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:70:13-72:29
+90                <action android:name="android.accessibilityservice.AccessibilityService" />
+90-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:71:17-92
+90-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:71:25-89
+91            </intent-filter>
+92
+93            <meta-data
+93-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:73:13-75:72
+94                android:name="android.accessibilityservice"
+94-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:74:17-60
+95                android:resource="@xml/accessibility_service_config" />
+95-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:75:17-69
+96        </service>
+97
+98        <!-- Overlay Service -->
+99        <service
+99-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:79:9-81:40
+100            android:name="com.focusguard.adblocker.OverlayService"
+100-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:80:13-43
+101            android:exported="false" />
+101-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:81:13-37
+102
+103        <!-- Notification Service -->
+104        <service
+104-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:84:9-86:40
+105            android:name="com.focusguard.adblocker.NotificationService"
+105-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:85:13-48
+106            android:exported="false" />
+106-->/Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:86:13-37
+107
+108        <provider
+108-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+109            android:name="androidx.startup.InitializationProvider"
+109-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+110            android:authorities="com.focusguard.adblocker.androidx-startup"
+110-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+111            android:exported="false" >
+111-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+112            <meta-data
+112-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+113                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+113-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+114                android:value="androidx.startup" />
+114-->[androidx.emoji2:emoji2:1.3.0] /Users/leolindo/.gradle/caches/transforms-3/d596f6772de7f24d30a6029a9bd83828/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+115            <meta-data
+115-->[androidx.lifecycle:lifecycle-process:2.8.4] /Users/leolindo/.gradle/caches/transforms-3/616e33b11b77c6c903f3b917a203cb46/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:29:13-31:52
+116                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+116-->[androidx.lifecycle:lifecycle-process:2.8.4] /Users/leolindo/.gradle/caches/transforms-3/616e33b11b77c6c903f3b917a203cb46/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:30:17-78
+117                android:value="androidx.startup" />
+117-->[androidx.lifecycle:lifecycle-process:2.8.4] /Users/leolindo/.gradle/caches/transforms-3/616e33b11b77c6c903f3b917a203cb46/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:31:17-49
+118            <meta-data
+118-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+119                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+119-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+120                android:value="androidx.startup" />
+120-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+121        </provider>
+122
+123        <receiver
+123-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+124            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+124-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+125            android:directBootAware="false"
+125-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+126            android:enabled="true"
+126-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+127            android:exported="true"
+127-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+128            android:permission="android.permission.DUMP" >
+128-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+129            <intent-filter>
+129-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+130                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+130-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+130-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+131            </intent-filter>
+132            <intent-filter>
+132-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+133                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+133-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+133-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+134            </intent-filter>
+135            <intent-filter>
+135-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+136                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+136-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+136-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+137            </intent-filter>
+138            <intent-filter>
+138-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+139                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+139-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+139-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/leolindo/.gradle/caches/transforms-3/b7051a52543d56543f7c29bbbe04293b/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+140            </intent-filter>
+141        </receiver>
+142    </application>
+143
+144</manifest>

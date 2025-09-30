@@ -3,33 +3,62 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     
-    <!-- App Color Scheme -->
-    <color name="background_primary">#F5F5F5</color>
-    <color name="background_secondary">#FFFFFF</color>
+    <!-- Material Design 3 Color Scheme -->
+    <color name="background_primary">#FFFBFE</color>
+    <color name="background_secondary">#F7F2FA</color>
+    <color name="surface">#FFFBFE</color>
+    <color name="surface_variant">#F4EFF4</color>
+    <color name="surface_container">#F0F4F8</color>
+    <color name="surface_container_high">#ECF0F4</color>
     
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#757575</color>
+    <color name="text_primary">#1D1B20</color>
+    <color name="text_secondary">#49454F</color>
+    <color name="text_tertiary">#79747E</color>
     <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_surface">#1D1B20</color>
     <color name="text_on_warning">#FFFFFF</color>
     
-    <color name="accent_primary">#2196F3</color>
-    <color name="accent_secondary">#FFC107</color>
+    <!-- Material You Primary Colors -->
+    <color name="accent_primary">#6750A4</color>
+    <color name="accent_primary_container">#EADDFF</color>
+    <color name="accent_secondary">#625B71</color>
+    <color name="accent_secondary_container">#E8DEF8</color>
     
-    <color name="success">#4CAF50</color>
-    <color name="warning">#FF9800</color>
-    <color name="error">#F44336</color>
-    <color name="warning_text">#D32F2F</color>
+    <!-- Semantic Colors -->
+    <color name="success">#2E7D32</color>
+    <color name="success_container">#C8E6C9</color>
+    
+    <!-- Switch Colors -->
+    <color name="switch_thumb_enabled">#4CAF50</color>
+    <color name="switch_track_enabled">#81C784</color>
+    <color name="switch_thumb_disabled">#F5F5F5</color>
+    <color name="switch_track_disabled">#E0E0E0</color>
+    <color name="warning">#F57C00</color>
+    <color name="warning_container">#FFE0B2</color>
+    <color name="error">#BA1A1A</color>
+    <color name="error_container">#FFDAD6</color>
+    <color name="warning_text">#B3261E</color>
     
     <!-- Card and Button Colors -->
     <color name="card_background">#FFFFFF</color>
-    <color name="card_stroke">#E0E0E0</color>
+    <color name="card_background_elevated">#F7F2FA</color>
+    <color name="card_stroke">#CAC4D0</color>
+    <color name="card_stroke_variant">#E6E0E9</color>
     
-    <color name="button_primary">#2196F3</color>
-    <color name="button_secondary">#FAFAFA</color>
-    <color name="button_warning">#FF9800</color>
+    <color name="button_primary">#6750A4</color>
+    <color name="button_primary_container">#EADDFF</color>
+    <color name="button_secondary">#FFFFFF</color>
+    <color name="button_secondary_container">#F7F2FA</color>
+    <color name="button_warning">#F57C00</color>
+    <color name="button_warning_container">#FFE0B2</color>
     
     <!-- Overlay Colors -->
     <color name="overlay_background">#CC000000</color>
     <color name="warning_overlay_background">#FFEB3B</color>
-    <color name="blocking_overlay_background">#80FF5722</color>
+    <color name="blocking_overlay_background">#CC000000</color>
+    
+    <!-- Elevation and Shadow -->
+    <color name="elevation_1">#FEFBFF</color>
+    <color name="elevation_2">#F9F5FF</color>
+    <color name="elevation_3">#F4EFFF</color>
 </resources>

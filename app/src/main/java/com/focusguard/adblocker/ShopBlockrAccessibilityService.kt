@@ -1,7 +1,11 @@
 package com.focusguard.adblocker
 
 import android.accessibilityservice.AccessibilityService
+import android.accessibilityservice.GestureDescription
 import android.content.Intent
+import android.graphics.Path
+import android.os.Handler
+import android.os.Looper
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.util.Log
@@ -76,8 +80,17 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
     private val periodicScanIntervalMs = 3000L // Scan every 3 seconds for live content
     
     // Shop blocking tracking
-    private var shopCooldownStartTime = 0L
-    private var isShopCooldownActive = false
+    private var hasActiveShopTabs = false
+    private var lastShopTabSeenTime = 0L
+    private val shopTabPersistenceMs = 2000L // Keep overlays for 2 seconds after shop disappears
+    
+    // Session tracking
+    private var isTikTokSessionActive = false
+    private lateinit var adAnalytics: AdAnalytics
+    
+    // Auto-swipe tracking
+    private var lastAutoSwipeTime = 0L
+    private val autoSwipeDebounceMs = 3000L // Minimum 3 seconds between auto-swipes
 
     override fun onServiceConnected() {
         super.onServiceConnected()
@@ -85,14 +98,15 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
         
         settingsManager = SettingsManager(this)
         
-        // Initialize click tracker
-        val adAnalytics = AdAnalytics.getInstance(this)
+        // Initialize analytics and click tracker
+        adAnalytics = AdAnalytics.getInstance(this)
         clickTracker = ClickTracker(adAnalytics)
         
         // Start overlay service
         val intent = Intent(this, OverlayService::class.java)
         startService(intent)
     }
+    
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         // Check if service is enabled before processing events
@@ -103,6 +117,13 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
         event?.let { accessibilityEvent ->
             if (accessibilityEvent.packageName == TIKTOK_PACKAGE) {
                 Log.v(TAG, "TikTok event: ${AccessibilityEvent.eventTypeToString(accessibilityEvent.eventType)}")
+                
+                // Start TikTok session if not already active
+                if (!isTikTokSessionActive) {
+                    // Session started - no explicit tracking needed with UsageStatsManager
+                    isTikTokSessionActive = true
+                    Log.d(TAG, "TikTok session started")
+                }
                 
                 // Handle different event types - optimized for live content detection
                 when (accessibilityEvent.eventType) {
@@ -119,6 +140,8 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
                             Log.v(TAG, "TikTok view focused - checking for shopping elements")
                             lastContentChangeTime = currentTime
                             handleTikTokEvent()
+                        } else {
+                            Log.v(TAG, "Debouncing view focused event")
                         }
                     }
                     AccessibilityEvent.TYPE_VIEW_SCROLLED -> {
@@ -127,6 +150,8 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
                             Log.v(TAG, "TikTok scroll detected - checking for live shopping")
                             lastPeriodicScanTime = currentTime
                             handleTikTokEvent()
+                        } else {
+                            Log.v(TAG, "Debouncing scroll event")
                         }
                     }
                     AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED -> {
@@ -157,7 +182,24 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
                             }
                         }
                     }
+                    else -> {
+                        Log.v(TAG, "Unhandled TikTok event type: ${AccessibilityEvent.eventTypeToString(accessibilityEvent.eventType)}")
+                    }
                 }
+            } else {
+                // End TikTok session when switching to different app
+                if (isTikTokSessionActive) {
+                    // Session ended - no explicit tracking needed with UsageStatsManager
+                    isTikTokSessionActive = false
+                    Log.d(TAG, "TikTok session ended - switched to ${accessibilityEvent.packageName}")
+                }
+                
+                // ALWAYS clear ALL overlays when leaving TikTok to prevent overlay persistence outside the app
+                Log.d(TAG, "Left TikTok app - FORCE clearing ALL overlays immediately")
+                clearAllOverlays()
+                hasActiveShopTabs = false
+                lastShopTabSeenTime = 0L // Reset persistence timer
+                Log.v(TAG, "Non-TikTok app event: ${accessibilityEvent.packageName}")
             }
         }
     }
@@ -180,11 +222,6 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
         val clickedNode = event.source
         Log.v(TAG, "Click event detected")
         
-        // Check if this is a shop tab click that should be blocked/delayed
-        if (clickedNode != null && settingsManager.isShopBlockingEnabled()) {
-            handleShopTabClick(clickedNode)
-        }
-        
         // Track clicks for analytics
         if (clickedNode != null) {
             clickTracker.trackClicks(event, this)
@@ -197,6 +234,11 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
         
         if (shopTabNodes.isNotEmpty()) {
             Log.d(TAG, "Found ${shopTabNodes.size} shop tab elements")
+            hasActiveShopTabs = true
+            lastShopTabSeenTime = System.currentTimeMillis()
+            
+            // Record shop tab visit for analytics
+            adAnalytics.recordShopTabVisit()
             
             when (settingsManager.getShopBlockingMode()) {
                 SettingsManager.SHOP_BLOCKING_OVERLAY -> {
@@ -218,9 +260,17 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
                     }
                     startService(intent)
                 }
-                SettingsManager.SHOP_BLOCKING_COOLDOWN -> {
-                    // Cooldown mode is handled in click events
-                    Log.d(TAG, "Shop tabs detected - cooldown mode active")
+            }
+        } else {
+            // No shop tabs found - check if persistence period has expired
+            if (hasActiveShopTabs) {
+                val timeSinceLastSeen = System.currentTimeMillis() - lastShopTabSeenTime
+                if (timeSinceLastSeen > shopTabPersistenceMs) {
+                    Log.d(TAG, "Shop tab persistence expired (${timeSinceLastSeen}ms) - clearing overlays")
+                    clearShopTabOverlays()
+                    hasActiveShopTabs = false
+                } else {
+                    Log.v(TAG, "Shop tabs not found but within persistence period (${timeSinceLastSeen}ms)")
                 }
             }
         }
@@ -228,24 +278,36 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
     
     private fun findShopTabs(node: AccessibilityNodeInfo, results: MutableList<AccessibilityNodeInfo>) {
         // Check current node for shop tab indicators
-        val text = node.text?.toString()?.lowercase() ?: ""
-        val contentDesc = node.contentDescription?.toString()?.lowercase() ?: ""
-        val resourceId = node.viewIdResourceName?.lowercase() ?: ""
+        val text = node.text?.toString() ?: ""
+        val contentDesc = node.contentDescription?.toString() ?: ""
+        val resourceId = node.viewIdResourceName ?: ""
         
         // Look for shop tab elements, especially at the top of the screen
         val rect = android.graphics.Rect()
         node.getBoundsInScreen(rect)
         
-        // Focus on elements in the top navigation area (typically y < 300)
-        val isInTopNavigation = rect.top < 300
+        // Focus on elements in the top navigation area (increased height to catch more tabs)
+        val isInTopNavigation = rect.top < 400
         
-        val isShopTab = SHOP_TAB_ELEMENTS.any { element ->
-            text.contains(element) || contentDesc.contains(element) || resourceId.contains(element)
+        // Look specifically for "Shop" text (case-insensitive) or other shop indicators
+        val isShopTab = text.equals("Shop", ignoreCase = true) ||
+                        contentDesc.equals("Shop", ignoreCase = true) ||
+                        text.contains("Shop", ignoreCase = true) ||
+                        contentDesc.contains("Shop", ignoreCase = true) ||
+                        SHOP_TAB_ELEMENTS.any { element ->
+                            text.contains(element, ignoreCase = true) || 
+                            contentDesc.contains(element, ignoreCase = true) || 
+                            resourceId.contains(element, ignoreCase = true)
+                        }
+        
+        if (isShopTab && isInTopNavigation) {
+            results.add(node)
+            Log.d(TAG, "Found shop tab: text='$text', desc='$contentDesc', resourceId='$resourceId', bounds=$rect, clickable=${node.isClickable}")
         }
         
-        if (isShopTab && isInTopNavigation && node.isClickable) {
-            results.add(node)
-            Log.d(TAG, "Found shop tab: text='$text', desc='$contentDesc', bounds=$rect")
+        // Log all top navigation elements for debugging (only when shop blocking is enabled)
+        if (isInTopNavigation && (text.isNotEmpty() || contentDesc.isNotEmpty()) && settingsManager.isShopBlockingEnabled()) {
+            Log.v(TAG, "Top nav element: text='$text', desc='$contentDesc', resourceId='$resourceId', bounds=$rect")
         }
         
         // Recursively check children
@@ -255,49 +317,6 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
         }
     }
     
-    private fun handleShopTabClick(clickedNode: AccessibilityNodeInfo) {
-        val text = clickedNode.text?.toString()?.lowercase() ?: ""
-        val contentDesc = clickedNode.contentDescription?.toString()?.lowercase() ?: ""
-        val resourceId = clickedNode.viewIdResourceName?.lowercase() ?: ""
-        
-        val isShopTabClick = SHOP_TAB_ELEMENTS.any { element ->
-            text.contains(element) || contentDesc.contains(element) || resourceId.contains(element)
-        }
-        
-        if (isShopTabClick && settingsManager.getShopBlockingMode() == SettingsManager.SHOP_BLOCKING_COOLDOWN) {
-            val currentTime = System.currentTimeMillis()
-            val cooldownDuration = settingsManager.getShopCooldownSeconds() * 1000L
-            
-            if (!isShopCooldownActive) {
-                // Start cooldown
-                shopCooldownStartTime = currentTime
-                isShopCooldownActive = true
-                Log.d(TAG, "Shop tab cooldown started for ${settingsManager.getShopCooldownSeconds()} seconds")
-                
-                // Show cooldown overlay
-                val intent = Intent(this, OverlayService::class.java).apply {
-                    action = OverlayService.ACTION_SHOW_SHOP_COOLDOWN
-                    putExtra(OverlayService.EXTRA_COOLDOWN_SECONDS, settingsManager.getShopCooldownSeconds())
-                }
-                startService(intent)
-                
-            } else if (currentTime - shopCooldownStartTime >= cooldownDuration) {
-                // Cooldown expired, allow click
-                isShopCooldownActive = false
-                Log.d(TAG, "Shop tab cooldown expired, click allowed")
-            } else {
-                // Still in cooldown, show remaining time
-                val remainingSeconds = ((cooldownDuration - (currentTime - shopCooldownStartTime)) / 1000).toInt() + 1
-                Log.d(TAG, "Shop tab click blocked - $remainingSeconds seconds remaining")
-                
-                val intent = Intent(this, OverlayService::class.java).apply {
-                    action = OverlayService.ACTION_SHOW_SHOP_COOLDOWN
-                    putExtra(OverlayService.EXTRA_COOLDOWN_SECONDS, remainingSeconds)
-                }
-                startService(intent)
-            }
-        }
-    }
     
     private fun detectShoppingElements(rootNode: AccessibilityNodeInfo) {
         val shoppingNodes = mutableListOf<AccessibilityNodeInfo>()
@@ -324,6 +343,22 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
             }
             startService(intent)
         }
+    }
+    
+    private fun clearShopTabOverlays() {
+        // Send clear command to overlay service
+        val intent = Intent(this, OverlayService::class.java).apply {
+            action = OverlayService.ACTION_CLEAR_SHOP_TAB_OVERLAYS
+        }
+        startService(intent)
+    }
+    
+    private fun clearAllOverlays() {
+        // Send clear all command to overlay service
+        val intent = Intent(this, OverlayService::class.java).apply {
+            action = OverlayService.ACTION_CLEAR_ALL_OVERLAYS
+        }
+        startService(intent)
     }
 
     private fun findShoppingElements(node: AccessibilityNodeInfo, results: MutableList<AccessibilityNodeInfo>) {
@@ -373,9 +408,12 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
             
             Log.w(TAG, "🚨 Found NEW sponsored content - SENDING TO OVERLAY SERVICE")
             
+            // Determine ad type based on detected content
+            val adType = determineAdType(sponsoredNodes)
+            
             // Track ad seen - only once per unique sponsored content
             val analytics = AdAnalytics.getInstance(this)
-            analytics.recordAdSeen()
+            analytics.recordAdSeen(adType)
             
             // Send sponsored content detection to overlay service
             val intent = Intent(this, OverlayService::class.java).apply {
@@ -383,9 +421,63 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
             }
             startService(intent)
             Log.d(TAG, "📤 Sent sponsored warning request to OverlayService")
+            
+            // Auto-swipe if enabled and not recently performed
+            if (settingsManager.isAutoSwipeEnabled()) {
+                Log.w(TAG, "🚀 AUTO-SWIPE IS ENABLED - Checking debounce...")
+                val currentTime = System.currentTimeMillis()
+                if (currentTime - lastAutoSwipeTime > autoSwipeDebounceMs) {
+                    Log.w(TAG, "🚀 DEBOUNCE PASSED - Triggering auto-swipe!")
+                    performAutoSwipe()
+                    lastAutoSwipeTime = currentTime
+                } else {
+                    Log.w(TAG, "⏰ Auto-swipe debounced (last swipe ${currentTime - lastAutoSwipeTime}ms ago, need ${autoSwipeDebounceMs}ms)")
+                }
+            } else {
+                Log.d(TAG, "⚙️ Auto-swipe is DISABLED in settings")
+            }
         } else {
             Log.v(TAG, "✅ No sponsored content found in current view")
         }
+    }
+    
+    private fun determineAdType(nodes: List<AccessibilityNodeInfo>): AdType {
+        for (node in nodes) {
+            val text = node.text?.toString()?.lowercase() ?: ""
+            val contentDesc = node.contentDescription?.toString()?.lowercase() ?: ""
+            val allText = "$text $contentDesc"
+            
+            when {
+                // Enhanced live shopping detection
+                allText.contains("live") && (allText.contains("shopping") || allText.contains("selling")) ||
+                allText.contains("tap to watch live") ||
+                allText.contains("watch live") ||
+                allText.contains("join live") -> {
+                    return AdType.LIVE_SHOPPING
+                }
+                // Learn more button detection
+                allText.contains("learn more") -> {
+                    return AdType.LEARN_MORE
+                }
+                // Enhanced shop now button detection
+                allText.contains("shop now") || 
+                allText.contains("buy now") || 
+                allText.contains("add to cart") ||
+                allText.contains("check it out") ||
+                (allText.contains("from $") || allText.contains("starting at $") || allText.contains("only $")) -> {
+                    return AdType.SHOP_NOW
+                }
+                // Product/review-based shopping content
+                allText.contains("free shipping") ||
+                allText.contains("star reviews") ||
+                allText.contains("4+ star") ||
+                allText.contains("5 star") -> {
+                    return AdType.SHOP_NOW
+                }
+            }
+        }
+        // Default to regular sponsored if no specific type detected
+        return AdType.REGULAR_SPONSORED
     }
     
     private fun createContentIdentifier(sponsoredNodes: List<AccessibilityNodeInfo>): String {
@@ -493,7 +585,40 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
             (resourceId.contains("live", ignoreCase = true) && 
              (resourceId.contains("shop", ignoreCase = true) ||
               resourceId.contains("product", ignoreCase = true) ||
-              resourceId.contains("sell", ignoreCase = true)))
+              resourceId.contains("sell", ignoreCase = true))) ||
+              
+            // New: "Tap to watch LIVE" patterns and live streaming indicators
+            text.contains("tap to watch live", ignoreCase = true) ||
+            contentDesc.contains("tap to watch live", ignoreCase = true) ||
+            text.contains("watch live", ignoreCase = true) ||
+            contentDesc.contains("watch live", ignoreCase = true) ||
+            text.contains("join live", ignoreCase = true) ||
+            contentDesc.contains("join live", ignoreCase = true) ||
+            
+            // Shopping-specific keywords that indicate commercial content
+            text.contains("free shipping", ignoreCase = true) ||
+            contentDesc.contains("free shipping", ignoreCase = true) ||
+            text.contains("4+ star", ignoreCase = true) ||
+            text.contains("5 star", ignoreCase = true) ||
+            text.contains("star reviews", ignoreCase = true) ||
+            contentDesc.contains("star reviews", ignoreCase = true) ||
+            
+            // Pricing patterns that indicate shopping content
+            (text.contains("from $", ignoreCase = true) ||
+             text.contains("starting at $", ignoreCase = true) ||
+             text.contains("only $", ignoreCase = true) ||
+             text.contains("just $", ignoreCase = true) ||
+             contentDesc.contains("from $", ignoreCase = true) ||
+             contentDesc.contains("starting at $", ignoreCase = true)) ||
+             
+            // Additional shopping indicators
+            text.contains("shop now", ignoreCase = true) ||
+            text.contains("buy now", ignoreCase = true) ||
+            text.contains("add to cart", ignoreCase = true) ||
+            text.contains("check it out", ignoreCase = true) ||
+            contentDesc.contains("shop now", ignoreCase = true) ||
+            contentDesc.contains("buy now", ignoreCase = true) ||
+            contentDesc.contains("add to cart", ignoreCase = true)
         
         // Carousel ad detection - look for carousel/multiple product indicators
         val hasCarouselAds = text.contains("carousel", ignoreCase = true) ||
@@ -551,6 +676,55 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
             }
         }
     }
+    
+    private fun performAutoSwipe() {
+        Log.w(TAG, "🔄 AUTO-SWIPE TRIGGERED - Performing swipe for sponsored content")
+        
+        // Check if gestures are supported
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+            Log.e(TAG, "❌ Auto-swipe requires Android 7.0+ (API 24), current API: ${android.os.Build.VERSION.SDK_INT}")
+            return
+        }
+        
+        try {
+            // Create a swipe up gesture from bottom to top (moves to next TikTok)
+            val swipePath = Path()
+            val startX = 500f // Middle of screen horizontally
+            val startY = 2000f // Bottom of screen
+            val endX = 500f // Same horizontal position
+            val endY = 300f // Top of screen
+            
+            swipePath.moveTo(startX, startY)
+            swipePath.lineTo(endX, endY)
+            
+            val gestureBuilder = GestureDescription.Builder()
+            val strokeDescription = GestureDescription.StrokeDescription(swipePath, 0, 300) // 300ms duration
+            gestureBuilder.addStroke(strokeDescription)
+            
+            val gesture = gestureBuilder.build()
+            
+            val result = dispatchGesture(gesture, object : GestureResultCallback() {
+                override fun onCompleted(gestureDescription: GestureDescription?) {
+                    super.onCompleted(gestureDescription)
+                    Log.w(TAG, "✅ AUTO-SWIPE COMPLETED SUCCESSFULLY!")
+                }
+                
+                override fun onCancelled(gestureDescription: GestureDescription?) {
+                    super.onCancelled(gestureDescription)
+                    Log.e(TAG, "❌ AUTO-SWIPE WAS CANCELLED!")
+                }
+            }, Handler(Looper.getMainLooper()))
+            
+            if (result) {
+                Log.w(TAG, "📱 AUTO-SWIPE GESTURE DISPATCHED SUCCESSFULLY")
+            } else {
+                Log.e(TAG, "❌ FAILED TO DISPATCH AUTO-SWIPE GESTURE - Check accessibility permissions!")
+            }
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "❌ Error performing auto-swipe: ${e.message}", e)
+        }
+    }
 
     override fun onInterrupt() {
         Log.d(TAG, "ShopBlockr Accessibility Service Interrupted")
@@ -558,8 +732,18 @@ class ShopBlockrAccessibilityService : AccessibilityService() {
 
     override fun onDestroy() {
         super.onDestroy()
+        
+        // End any active TikTok session
+        if (isTikTokSessionActive && ::adAnalytics.isInitialized) {
+            // Session ended - no explicit tracking needed with UsageStatsManager
+            isTikTokSessionActive = false
+            Log.d(TAG, "TikTok session ended - service destroyed")
+        }
+        
         // Stop overlay service
         val intent = Intent(this, OverlayService::class.java)
         stopService(intent)
+        
+        Log.d(TAG, "ShopBlockr Accessibility Service Destroyed")
     }
 }

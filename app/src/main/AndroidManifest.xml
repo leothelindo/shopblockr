@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <!-- POST_NOTIFICATIONS only needed for Android 13+ -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Usage Stats permission for tracking app usage -->
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" 
+        tools:ignore="ProtectedPermissions" />
     
     <!-- Optional features for better compatibility -->
     <uses-feature android:name="android.software.leanback" android:required="false" />

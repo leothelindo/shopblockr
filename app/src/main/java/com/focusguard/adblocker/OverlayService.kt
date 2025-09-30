@@ -33,6 +33,7 @@ class OverlayService : Service() {
         const val ACTION_BLOCK_SHOP_TABS = "block_shop_tabs"
         const val ACTION_SHOW_SHOP_COOLDOWN = "show_shop_cooldown"
         const val ACTION_CLEAR_ALL_OVERLAYS = "clear_all_overlays"
+        const val ACTION_CLEAR_SHOP_TAB_OVERLAYS = "clear_shop_tab_overlays"
         const val EXTRA_ELEMENT_COUNT = "element_count"
         const val EXTRA_ELEMENT_BOUNDS = "element_bounds"
         const val EXTRA_COOLDOWN_SECONDS = "cooldown_seconds"
@@ -42,11 +43,16 @@ class OverlayService : Service() {
     private var sponsoredOverlay: View? = null
     private var blockingOverlays = mutableListOf<View>()
     private var shopTabOverlays = mutableListOf<View>()
+    private var shopClickTrackingOverlays = mutableListOf<View>()
     private var cooldownOverlay: View? = null
     private val serviceScope = CoroutineScope(Dispatchers.Main + Job())
     private var hideOverlayJob: Job? = null
     private var hideCooldownJob: Job? = null
+    private var safetyTimeoutJob: Job? = null
     private lateinit var settingsManager: SettingsManager
+    
+    // Safety timeout to auto-clear overlays if they persist too long
+    private val SAFETY_TIMEOUT_MS = 30000L // 30 seconds
 
     override fun onCreate() {
         super.onCreate()
@@ -91,6 +97,9 @@ class OverlayService : Service() {
                 }
                 ACTION_CLEAR_ALL_OVERLAYS -> {
                     clearAllOverlays()
+                }
+                ACTION_CLEAR_SHOP_TAB_OVERLAYS -> {
+                    clearShopTabOverlays()
                 }
             }
         }
@@ -256,15 +265,26 @@ class OverlayService : Service() {
 
         // Clear existing shop tab overlays
         clearShopTabOverlays()
+        
+        // Start safety timeout to prevent overlay persistence
+        startSafetyTimeout()
 
         elementBounds?.forEach { bounds ->
             try {
                 val inflater = LayoutInflater.from(this)
                 val blockingView = inflater.inflate(R.layout.blocking_overlay, null)
 
+                // Adjust overlay positioning and size for better Shop tab blocking
+                val originalWidth = bounds[2] - bounds[0]
+                val originalHeight = bounds[3] - bounds[1]
+                
+                // Make overlay same width but half the height
+                val adjustedHeight = (originalHeight * 0.5).toInt().coerceAtLeast(40) // Min 40dp height
+                val yOffset = -10 // Move up by 10dp
+
                 val params = WindowManager.LayoutParams(
-                    bounds[2] - bounds[0], // width
-                    bounds[3] - bounds[1], // height
+                    originalWidth, // Keep original width
+                    adjustedHeight, // Half height
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
                     } else {
@@ -277,13 +297,16 @@ class OverlayService : Service() {
                 )
 
                 params.x = bounds[0]
-                params.y = bounds[1]
+                params.y = bounds[1] + yOffset
                 params.gravity = Gravity.TOP or Gravity.START
 
                 windowManager?.addView(blockingView, params)
                 shopTabOverlays.add(blockingView)
 
-                Log.d(TAG, "Added shop tab blocking overlay at (${bounds[0]}, ${bounds[1]}) size ${bounds[2] - bounds[0]}x${bounds[3] - bounds[1]}")
+                // Create invisible click tracking overlay over the original shop button area
+                createShopClickTrackingOverlay(bounds, originalWidth, originalHeight)
+
+                Log.d(TAG, "Added shop tab blocking overlay at (${bounds[0]}, ${bounds[1] + yOffset}) size ${originalWidth}x${adjustedHeight}")
 
             } catch (e: Exception) {
                 Log.e(TAG, "Error creating shop tab blocking overlay: ${e.message}", e)
@@ -376,6 +399,49 @@ class OverlayService : Service() {
         }
     }
 
+    private fun createShopClickTrackingOverlay(bounds: IntArray, width: Int, height: Int) {
+        try {
+            // Create invisible view for click tracking
+            val trackingView = View(this).apply {
+                setBackgroundColor(0x00000000) // Fully transparent
+                setOnTouchListener { _, event ->
+                    if (event.action == MotionEvent.ACTION_DOWN) {
+                        // Track shop button click attempt
+                        val analytics = AdAnalytics.getInstance(this@OverlayService)
+                        analytics.recordShopTabVisit()
+                        Log.d(TAG, "🎯 Shop button click detected and tracked")
+                    }
+                    false // Allow event to pass through
+                }
+            }
+
+            val params = WindowManager.LayoutParams(
+                width,
+                height,
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+                } else {
+                    @Suppress("DEPRECATION")
+                    WindowManager.LayoutParams.TYPE_PHONE
+                },
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                PixelFormat.TRANSLUCENT
+            )
+
+            params.x = bounds[0]
+            params.y = bounds[1]
+            params.gravity = Gravity.TOP or Gravity.START
+
+            windowManager?.addView(trackingView, params)
+            shopClickTrackingOverlays.add(trackingView)
+
+            Log.d(TAG, "Added invisible shop click tracking overlay at (${bounds[0]}, ${bounds[1]}) size ${width}x${height}")
+
+        } catch (e: Exception) {
+            Log.e(TAG, "Error creating shop click tracking overlay: ${e.message}", e)
+        }
+    }
+
     private fun clearShopTabOverlays() {
         shopTabOverlays.forEach { overlay ->
             try {
@@ -385,7 +451,18 @@ class OverlayService : Service() {
             }
         }
         shopTabOverlays.clear()
-        Log.d(TAG, "Cleared all shop tab overlays")
+        
+        // Also clear click tracking overlays
+        shopClickTrackingOverlays.forEach { overlay ->
+            try {
+                windowManager?.removeView(overlay)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error removing shop click tracking overlay: ${e.message}", e)
+            }
+        }
+        shopClickTrackingOverlays.clear()
+        
+        Log.d(TAG, "Cleared all shop tab overlays and click tracking overlays")
     }
 
     private fun clearAllOverlays() {
@@ -396,6 +473,22 @@ class OverlayService : Service() {
         hideCooldownOverlay()
         hideOverlayJob?.cancel()
         hideCooldownJob?.cancel()
+        stopSafetyTimeout()
+    }
+    
+    private fun startSafetyTimeout() {
+        stopSafetyTimeout()
+        safetyTimeoutJob = serviceScope.launch {
+            Log.d(TAG, "Safety timeout started - will auto-clear overlays in ${SAFETY_TIMEOUT_MS}ms")
+            delay(SAFETY_TIMEOUT_MS)
+            Log.w(TAG, "SAFETY TIMEOUT - Force clearing all overlays after ${SAFETY_TIMEOUT_MS}ms")
+            clearAllOverlays()
+        }
+    }
+    
+    private fun stopSafetyTimeout() {
+        safetyTimeoutJob?.cancel()
+        safetyTimeoutJob = null
     }
 
     private fun vibrateDevice() {

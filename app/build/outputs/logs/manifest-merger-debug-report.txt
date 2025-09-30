@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:2:1-87:12
-INJECTED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:2:1-87:12
-INJECTED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:2:1-87:12
-INJECTED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:2:1-87:12
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:2:1-90:12
+INJECTED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:2:1-90:12
+INJECTED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:2:1-90:12
+INJECTED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:2:1-90:12
 MERGED from [com.google.android.material:material:1.12.0] /Users/leolindo/.gradle/caches/transforms-3/c29f1a47a7b2f2bfd5db2868f2be0231/transformed/material-1.12.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/leolindo/.gradle/caches/transforms-3/8177fc0ae5949b09fa6ab8b305676505/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.7.0] /Users/leolindo/.gradle/caches/transforms-3/0256afabe871e37286290edec195f5b7/transformed/appcompat-resources-1.7.0/AndroidManifest.xml:2:1-7:12
@@ -74,21 +74,27 @@ uses-permission#android.permission.POST_NOTIFICATIONS
 ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:10:5-77
 	android:name
 		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:10:22-74
+uses-permission#android.permission.PACKAGE_USAGE_STATS
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:12:5-13:47
+	tools:ignore
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:13:9-44
+	android:name
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:12:22-75
 uses-feature#android.software.leanback
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:13:5-87
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:16:5-87
 	android:required
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:13:60-84
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:16:60-84
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:13:19-59
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:16:19-59
 uses-feature#android.hardware.touchscreen
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:14:5-90
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:17:5-90
 	android:required
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:14:63-87
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:17:63-87
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:14:19-62
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:17:19-62
 application
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:16:5-85:19
-INJECTED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:16:5-85:19
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:19:5-88:19
+INJECTED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:19:5-88:19
 MERGED from [com.google.android.material:material:1.12.0] /Users/leolindo/.gradle/caches/transforms-3/c29f1a47a7b2f2bfd5db2868f2be0231/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] /Users/leolindo/.gradle/caches/transforms-3/c29f1a47a7b2f2bfd5db2868f2be0231/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/leolindo/.gradle/caches/transforms-3/8177fc0ae5949b09fa6ab8b305676505/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
@@ -110,105 +116,105 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/leolindo/.gradle/cac
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.13.1] /Users/leolindo/.gradle/caches/transforms-3/941772b63348fc5871296b1110339df0/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:23:9-35
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:26:9-35
 	android:label
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:21:9-41
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:24:9-41
 	android:fullBackupContent
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:19:9-54
-	android:roundIcon
 		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:22:9-54
+	android:roundIcon
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:25:9-54
 	tools:targetApi
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:25:9-29
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:28:9-29
 	android:icon
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:20:9-43
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:23:9-43
 	android:allowBackup
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:17:9-35
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:20:9-35
 	android:theme
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:24:9-48
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:27:9-48
 	android:dataExtractionRules
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:18:9-65
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:21:9-65
 activity#com.focusguard.adblocker.MainActivity
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:28:9-36:20
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:31:9-39:20
 	android:exported
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:30:13-36
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:33:13-36
 	android:theme
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:31:13-52
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:34:13-52
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:29:13-41
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:32:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:32:13-35:29
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:35:13-38:29
 action#android.intent.action.MAIN
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:33:17-69
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:36:17-69
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:33:25-66
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:36:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:34:17-77
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:37:17-77
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:34:27-74
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:37:27-74
 activity#com.focusguard.adblocker.SettingsActivity
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:39:9-42:58
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:42:9-45:58
 	android:parentActivityName
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:42:13-55
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:45:13-55
 	android:exported
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:41:13-37
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:44:13-37
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:40:13-45
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:43:13-45
 activity#com.focusguard.adblocker.AnalyticsActivity
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:45:9-48:58
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:48:9-51:58
 	android:parentActivityName
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:48:13-55
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:51:13-55
 	android:exported
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:47:13-37
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:50:13-37
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:46:13-46
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:49:13-46
 activity#com.focusguard.adblocker.DeviceCompatibilityActivity
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:51:9-54:58
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:54:9-57:58
 	android:parentActivityName
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:54:13-55
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:57:13-55
 	android:exported
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:53:13-37
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:56:13-37
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:52:13-56
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:55:13-56
 activity#com.focusguard.adblocker.TipsActivity
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:57:9-60:58
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:60:9-63:58
 	android:parentActivityName
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:60:13-55
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:63:13-55
 	android:exported
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:59:13-37
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:62:13-37
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:58:13-41
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:61:13-41
 service#com.focusguard.adblocker.ShopBlockrAccessibilityService
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:63:9-73:19
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:66:9-76:19
 	android:exported
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:65:13-36
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:68:13-36
 	android:permission
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:66:13-79
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:69:13-79
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:64:13-59
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:67:13-59
 intent-filter#action:name:android.accessibilityservice.AccessibilityService
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:67:13-69:29
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:70:13-72:29
 action#android.accessibilityservice.AccessibilityService
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:68:17-92
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:71:17-92
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:68:25-89
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:71:25-89
 meta-data#android.accessibilityservice
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:70:13-72:72
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:73:13-75:72
 	android:resource
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:72:17-69
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:75:17-69
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:71:17-60
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:74:17-60
 service#com.focusguard.adblocker.OverlayService
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:76:9-78:40
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:79:9-81:40
 	android:exported
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:78:13-37
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:81:13-37
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:77:13-43
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:80:13-43
 service#com.focusguard.adblocker.NotificationService
-ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:81:9-83:40
+ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:84:9-86:40
 	android:exported
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:83:13-37
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:86:13-37
 	android:name
-		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:82:13-48
+		ADDED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml:85:13-48
 uses-sdk
 INJECTED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/leolindo/Documents/Coding_Projects/ad_blocker/app/src/main/AndroidManifest.xml

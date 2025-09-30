@@ -4,14 +4,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.view.View
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 class SettingsActivity : AppCompatActivity() {
@@ -90,33 +87,39 @@ class SettingsActivity : AppCompatActivity() {
             }
         })
         
-        // Shop blocking mode button
-        findViewById<Button>(R.id.shop_blocking_mode_button).setOnClickListener {
-            showShopBlockingModeDialog()
+        // Shop blocking toggle
+        val shopBlockingToggle = findViewById<Switch>(R.id.shop_blocking_toggle)
+        shopBlockingToggle.isChecked = settingsManager.getShopBlockingMode() == SettingsManager.SHOP_BLOCKING_OVERLAY
+        shopBlockingToggle.setOnCheckedChangeListener { _, isChecked ->
+            val mode = if (isChecked) SettingsManager.SHOP_BLOCKING_OVERLAY else SettingsManager.SHOP_BLOCKING_OFF
+            settingsManager.setShopBlockingMode(mode)
+            val modeText = if (isChecked) "Shop tabs will be blocked with overlays" else "Shop blocking disabled"
+            Toast.makeText(this, modeText, Toast.LENGTH_SHORT).show()
         }
         
-        // Shop cooldown slider
-        val cooldownSlider = findViewById<SeekBar>(R.id.shop_cooldown_slider)
-        cooldownSlider.progress = settingsManager.getShopCooldownSeconds() - 1 // Slider is 0-based
-        cooldownSlider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    val seconds = progress + 1 // Convert from 0-based to 1-based
-                    settingsManager.setShopCooldownSeconds(seconds)
-                    updateUI()
-                }
+        // Auto-swipe toggle
+        val autoSwipeToggle = findViewById<Switch>(R.id.auto_swipe_toggle)
+        autoSwipeToggle.isChecked = settingsManager.isAutoSwipeEnabled()
+        autoSwipeToggle.setOnCheckedChangeListener { _, isChecked ->
+            settingsManager.setAutoSwipeEnabled(isChecked)
+            Toast.makeText(this, if (isChecked) "Auto-swipe enabled - will swipe when sponsored content is detected" else "Auto-swipe disabled", Toast.LENGTH_SHORT).show()
+        }
+        
+        
+        // Usage access button
+        findViewById<Button>(R.id.usage_access_button).setOnClickListener {
+            try {
+                val intent = adAnalytics.requestUsageStatsPermission()
+                startActivity(intent)
+                Toast.makeText(this, "Please find 'ShopBlockr' and enable usage access", Toast.LENGTH_LONG).show()
+            } catch (e: Exception) {
+                Toast.makeText(this, "Unable to open settings. Please manually grant usage access permission.", Toast.LENGTH_LONG).show()
             }
-            
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                val seconds = (seekBar?.progress ?: 0) + 1
-                Toast.makeText(this@SettingsActivity, "Shop cooldown set to $seconds second${if (seconds == 1) "" else "s"}", Toast.LENGTH_SHORT).show()
-            }
-        })
+        }
         
         // Clear data button
         findViewById<Button>(R.id.clear_data_button).setOnClickListener {
-            adAnalytics.resetAllData()
+            adAnalytics.resetAnalytics()
             Toast.makeText(this, "All analytics data cleared", Toast.LENGTH_SHORT).show()
             updateUI()
         }
@@ -172,40 +175,17 @@ class SettingsActivity : AppCompatActivity() {
         // Update warning duration text
         findViewById<TextView>(R.id.warning_duration_text).text = settingsManager.getWarningDurationText()
         
-        // Update shop blocking settings
-        findViewById<TextView>(R.id.shop_blocking_mode_text).text = settingsManager.getShopBlockingModeText()
-        findViewById<TextView>(R.id.shop_cooldown_text).text = settingsManager.getShopCooldownText()
-        
-        // Show/hide cooldown slider based on mode
-        val cooldownContainer = findViewById<LinearLayout>(R.id.shop_cooldown_container)
-        cooldownContainer.visibility = if (settingsManager.getShopBlockingMode() == SettingsManager.SHOP_BLOCKING_COOLDOWN) {
-            View.VISIBLE
+        // Update usage access button visibility
+        val usageAccessButton = findViewById<Button>(R.id.usage_access_button)
+        if (adAnalytics.hasUsageStatsPermission()) {
+            usageAccessButton.text = "✅ Usage Access Granted"
+            usageAccessButton.isEnabled = false
         } else {
-            View.GONE
+            usageAccessButton.text = "Grant Usage Access Permission"
+            usageAccessButton.isEnabled = true
         }
     }
     
-    private fun showShopBlockingModeDialog() {
-        val options = arrayOf("Off", "Block with overlay", "Cooldown delay")
-        val currentMode = settingsManager.getShopBlockingMode()
-        
-        AlertDialog.Builder(this)
-            .setTitle("Select Shop Blocking Mode")
-            .setSingleChoiceItems(options, currentMode) { dialog, which ->
-                settingsManager.setShopBlockingMode(which)
-                updateUI()
-                val modeText = when (which) {
-                    SettingsManager.SHOP_BLOCKING_OFF -> "Shop blocking disabled"
-                    SettingsManager.SHOP_BLOCKING_OVERLAY -> "Shop tabs will be blocked with overlays"
-                    SettingsManager.SHOP_BLOCKING_COOLDOWN -> "Shop tabs will have a cooldown delay"
-                    else -> "Shop blocking disabled"
-                }
-                Toast.makeText(this, modeText, Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
-    }
     
     
     private fun requestOverlayPermission() {
