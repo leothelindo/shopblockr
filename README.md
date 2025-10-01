@@ -47,8 +47,6 @@ ShopBlockr works by monitoring TikTok through Android's accessibility services. 
 3. **Install the APK** and grant permissions when prompted
 4. **Enable accessibility service** for ShopBlockr in Settings → Accessibility
 
-*For detailed installation instructions, see the [Installation](#installation) section below.*
-
 ### Development Notes
 
 - The app targets Android 8.0+ (API 26) for maximum compatibility
