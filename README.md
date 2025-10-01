@@ -4,7 +4,7 @@ ShopBlockr is a **completely free** Android accessibility service that helps pro
 
 ## Support the Project
 
-ShopBlockr is completely free and always will be! If the app has helped you avoid impulse purchases or maintain healthier TikTok habits, you can optionally show your appreciation:
+ShopBlockr is completely free and always will be! You can optionally show your appreciation:
 
 **[☕ Buy me a coffee on Venmo](https://venmo.com/code?user_id=2128606729863168980&created=1759285371)**
 
@@ -48,47 +48,6 @@ ShopBlockr works by monitoring TikTok through Android's accessibility services. 
 4. **Enable accessibility service** for ShopBlockr in Settings → Accessibility
 
 *For detailed installation instructions, see the [Installation](#installation) section below.*
-
-## Building from Source
-
-### Prerequisites
-
-- Android Studio Arctic Fox or later
-- Android SDK API 26 or higher (Android 8.0+)
-- Gradle 8.0+
-- Java 8 or higher
-
-### Setup Instructions
-
-1. **Clone this repository:**
-   ```bash
-   git clone https://github.com/yourusername/ad_blocker.git
-   cd ad_blocker
-   ```
-
-2. **Open in Android Studio:**
-   - Launch Android Studio
-   - Select "Open an existing project"
-   - Navigate to the cloned repository folder
-   - Wait for Gradle sync to complete
-
-3. **Build the APK:**
-   ```bash
-   ./gradlew assembleRelease
-   ```
-   
-   Or from Android Studio: Build → Generate Signed Bundle/APK
-
-4. **The APK will be generated at:**
-   ```
-   app/build/outputs/apk/release/app-release.apk
-   ```
-
-### Debug Build (for development)
-
-```bash
-./gradlew assembleDebug
-```
 
 ### Development Notes
 
@@ -143,38 +102,6 @@ ShopBlockr works by monitoring TikTok through Android's accessibility services. 
 - No screenshots or content are stored or transmitted
 - Analytics data is stored locally using Android's secure storage
 - You can clear all data anytime from the app settings
-
-## Compatibility
-
-- **Android Version**: Android 8.0 (API 26) and above
-- **TikTok Compatibility**: Optimized for TikTok's current interface (regularly updated for compatibility)
-- **Device Support**: Works on phones and tablets with various screen sizes and resolutions
-- **Performance**: Lightweight with minimal battery and memory usage
-- **Languages**: Currently supports English interface
-
-## Contributing
-
-This is an open-source project focused on helping users maintain healthy social media habits. Contributions are welcome!
-
-### How to Contribute
-
-1. **Report Issues**: Found a bug or have a suggestion? [Open an issue](../../issues)
-2. **Submit Pull Requests**: Improvements and bug fixes are appreciated
-3. **Feature Requests**: Suggest new features for protecting users from shopping distractions
-4. **Testing**: Help test on different devices and Android versions
-
-### Development Guidelines
-
-- Keep the app completely free and privacy-focused
-- Maintain compatibility with Android 8.0+
-- Follow Android accessibility best practices
-- Ensure all features work offline
-
-## Support
-
-- **Issues**: Report bugs or request features via [GitHub Issues](../../issues)
-- **Discussions**: Join conversations in [GitHub Discussions](../../discussions)
-- **Wiki**: Check the [project wiki](../../wiki) for detailed documentation
 
 ## License
 
