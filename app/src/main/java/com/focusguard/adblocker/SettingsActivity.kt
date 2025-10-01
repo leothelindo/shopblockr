@@ -125,6 +125,11 @@ class SettingsActivity : AppCompatActivity() {
         }
         
         
+        // Tip button
+        findViewById<Button>(R.id.tip_button_settings).setOnClickListener {
+            openTipLink()
+        }
+        
         // Back button
         findViewById<Button>(R.id.back_button).setOnClickListener {
             finish()
@@ -221,6 +226,17 @@ class SettingsActivity : AppCompatActivity() {
         )
         
         return accessibilityServices?.contains("${packageName}/${ShopBlockrAccessibilityService::class.java.name}") == true
+    }
+    
+    private fun openTipLink() {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://venmo.com/code?user_id=2128606729863168980&created=1759285371")
+            }
+            startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Thanks for considering a tip! Please visit venmo.com/leolindo to support the project.", Toast.LENGTH_LONG).show()
+        }
     }
     
     override fun onResume() {

@@ -68,6 +68,10 @@
         "source": "/Users/leolindo/.gradle/daemon/8.2/com.focusguard.adblocker.app-main-43:/mipmap-xhdpi/ic_launcher_round.xml"
     },
     {
+        "merged": "com.focusguard.adblocker.app-merged_res-41:/layout_activity_main_modern.xml.flat",
+        "source": "com.focusguard.adblocker.app-main-43:/layout/activity_main_modern.xml"
+    },
+    {
         "merged": "/Users/leolindo/.gradle/daemon/8.2/com.focusguard.adblocker.app-merged_res-41:/mipmap-xxhdpi_ic_launcher.xml.flat",
         "source": "/Users/leolindo/.gradle/daemon/8.2/com.focusguard.adblocker.app-main-43:/mipmap-xxhdpi/ic_launcher.xml"
     },
@@ -132,16 +136,12 @@
         "source": "/Users/leolindo/.gradle/daemon/8.2/com.focusguard.adblocker.app-main-43:/drawable/blocking_overlay_background.xml"
     },
     {
-        "merged": "com.focusguard.adblocker.app-merged_res-41:/layout_activity_analytics.xml.flat",
-        "source": "com.focusguard.adblocker.app-main-43:/layout/activity_analytics.xml"
+        "merged": "/Users/leolindo/.gradle/daemon/8.2/com.focusguard.adblocker.app-merged_res-41:/layout_activity_main_modern.xml.flat",
+        "source": "/Users/leolindo/.gradle/daemon/8.2/com.focusguard.adblocker.app-main-43:/layout/activity_main_modern.xml"
     },
     {
         "merged": "/Users/leolindo/.gradle/daemon/8.2/com.focusguard.adblocker.app-merged_res-41:/drawable_switch_thumb.xml.flat",
         "source": "/Users/leolindo/.gradle/daemon/8.2/com.focusguard.adblocker.app-main-43:/drawable/switch_thumb.xml"
-    },
-    {
-        "merged": "/Users/leolindo/.gradle/daemon/8.2/com.focusguard.adblocker.app-merged_res-41:/layout_activity_main_modern.xml.flat",
-        "source": "/Users/leolindo/.gradle/daemon/8.2/com.focusguard.adblocker.app-main-43:/layout/activity_main_modern.xml"
     },
     {
         "merged": "/Users/leolindo/.gradle/daemon/8.2/com.focusguard.adblocker.app-merged_res-41:/xml_accessibility_service_config.xml.flat",

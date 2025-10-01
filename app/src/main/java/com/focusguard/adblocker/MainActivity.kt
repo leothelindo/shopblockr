@@ -104,6 +104,11 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.setup_overlay_button).setOnClickListener {
             requestOverlayPermission()
         }
+        
+        // Tip button
+        findViewById<Button>(R.id.tip_button).setOnClickListener {
+            openTipLink()
+        }
     }
     
     
@@ -225,6 +230,17 @@ class MainActivity : AppCompatActivity() {
                 delay(3000) // Update every 3 seconds
                 updateUI()
             }
+        }
+    }
+    
+    private fun openTipLink() {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://venmo.com/code?user_id=2128606729863168980&created=1759285371")
+            }
+            startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Thanks for considering a tip! Please visit venmo.com/leolindo to support the project.", Toast.LENGTH_LONG).show()
         }
     }
     

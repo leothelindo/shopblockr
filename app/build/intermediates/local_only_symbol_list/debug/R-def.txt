@@ -67,7 +67,6 @@ id analytics_summary
 id android_version
 id auto_swipe_toggle
 id back_button
-id blocking_effectiveness
 id clear_data_button
 id compatibility_button_modern
 id compatibility_details
@@ -98,6 +97,8 @@ id shop_now_count
 id shop_tab_visits
 id status_text_modern
 id summary_text
+id tip_button
+id tip_button_settings
 id tips_button
 id today_ads_count
 id total_ads_count

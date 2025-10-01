@@ -76,7 +76,6 @@ class AnalyticsActivity : AppCompatActivity() {
             (analyticsData.dailyAdsSeen.toDouble() / (analyticsData.dailyScreenTimeMinutes / 60.0))
         } else 0.0
         findViewById<TextView>(R.id.ads_per_hour).text = decimalFormat.format(avgAdsPerHour)
-        findViewById<TextView>(R.id.blocking_effectiveness).text = "${decimalFormat.format(analyticsData.blockingEffectiveness)}%"
         
         // Ad counts
         findViewById<TextView>(R.id.today_ads_count).text = "${analyticsData.dailyAdsSeen}"
@@ -223,7 +222,6 @@ class AnalyticsActivity : AppCompatActivity() {
         
         // Show available data (ads seen, etc.)
         findViewById<TextView>(R.id.ads_per_hour).text = "N/A"
-        findViewById<TextView>(R.id.blocking_effectiveness).text = "${decimalFormat.format(analyticsData.blockingEffectiveness)}%"
         
         // Ad counts (these work without usage permission)
         findViewById<TextView>(R.id.today_ads_count).text = "${analyticsData.dailyAdsSeen}"

@@ -3334,7 +3334,6 @@ id beginOnFirstDraw
 id beginning
 id bestChoice
 id blocking
-id blocking_effectiveness
 id bottom
 id bounce
 id bounceBoth
@@ -3743,6 +3742,8 @@ id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
 id time
+id tip_button
+id tip_button_settings
 id tips_button
 id title
 id titleDividerNoCustom

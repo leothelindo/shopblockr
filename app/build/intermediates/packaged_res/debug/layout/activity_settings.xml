@@ -438,6 +438,18 @@
 
         </LinearLayout>
 
+        <!-- Optional Tip Button -->
+        <Button
+            android:id="@+id/tip_button_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="☕ Support ShopBlockr (Optional tip)"
+            android:background="@drawable/button_secondary"
+            android:textColor="@color/text_on_primary"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="12dp" />
+
         <!-- Back Button -->
         <Button
             android:id="@+id/back_button"
@@ -445,8 +457,7 @@
             android:layout_height="wrap_content"
             android:text="Back"
             android:background="@drawable/button_primary"
-            android:textColor="@color/text_on_primary"
-            android:layout_marginTop="20dp" />
+            android:textColor="@color/text_on_primary" />
 
     </LinearLayout>
 

@@ -2,6 +2,11 @@
 
 ShopBlockr is a **completely free** Android accessibility service that helps protect users from shopping distractions by detecting sponsored content and shopping elements in TikTok. The app provides protective warnings and overlays to help users maintain focus and avoid impulsive shopping decisions.
 
+## Support the Project
+
+ShopBlockr is completely free and always will be! If the app has helped you avoid impulse purchases or maintain healthier TikTok habits, you can optionally show your appreciation:
+
+**[☕ Buy me a coffee on Venmo](https://venmo.com/code?user_id=2128606729863168980&created=1759285371)**
 
 ## Features
 
@@ -180,5 +185,3 @@ This project is open source and available under the [MIT License](LICENSE).
 ShopBlockr is an independent tool and is not affiliated with TikTok, ByteDance, or any other social media platform. Use of this app should comply with TikTok's terms of service and your local laws regarding accessibility services. The app is designed to help users make conscious decisions about their social media engagement and is not intended to circumvent or violate any platform's terms of service.
 
 ---
-
-**Made with ❤️ to help users maintain healthy digital habits**
